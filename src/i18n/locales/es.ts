@@ -10,7 +10,11 @@ export default {
   },
   hero: {
     couple: 'María & Calum',
+    eyebrow: 'Nos casamos',
     intro: 'Una invitación digital de boda elegante, cercana y preparada para crecer.',
+  },
+  envelope: {
+    tapHint: 'Toca para abrir',
   },
   language: {
     ariaLabel: 'Cambiar idioma',
@@ -34,6 +38,9 @@ export default {
     directions: 'Cómo llegar',
     flip: 'Ver dirección',
     title: '¿Dónde será?',
+  },
+  timeline: {
+    title: 'El plan del día',
   },
   rsvp: {
     allergies: 'Alergias o intolerancias',
@@ -67,11 +74,15 @@ export default {
     upload: 'Sube tus fotos',
     uploadButton: 'Subir foto',
   },
+  gift: {
+    title: 'Regalo',
+  },
   countdown: {
     days: 'Días',
     finished: 'Hoy celebramos el amor de María y Calum.',
     hours: 'Horas',
     minutes: 'Minutos',
     seconds: 'Segundos',
+    title: 'Ya queda menos',
   },
 }

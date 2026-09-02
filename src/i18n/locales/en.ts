@@ -10,7 +10,11 @@ export default {
   },
   hero: {
     couple: 'María & Calum',
+    eyebrow: 'We are getting married',
     intro: 'An elegant, warm digital wedding invitation ready to grow.',
+  },
+  envelope: {
+    tapHint: 'Tap to open',
   },
   language: {
     ariaLabel: 'Change language',
@@ -34,6 +38,9 @@ export default {
     directions: 'Get directions',
     flip: 'See address',
     title: 'Where will it be?',
+  },
+  timeline: {
+    title: 'The plan for the day',
   },
   rsvp: {
     allergies: 'Allergies or intolerances',
@@ -67,11 +74,15 @@ export default {
     upload: 'Upload your photos',
     uploadButton: 'Upload photo',
   },
+  gift: {
+    title: 'Gift',
+  },
   countdown: {
     days: 'Days',
     finished: 'Today we celebrate María and Calum.',
     hours: 'Hours',
     minutes: 'Minutes',
     seconds: 'Seconds',
+    title: 'Not long now',
   },
 }
