@@ -1,0 +1,5 @@
+@mixin section-container {
+  margin-inline: auto;
+  max-width: 600px;
+  padding-inline: var(--space-page);
+}

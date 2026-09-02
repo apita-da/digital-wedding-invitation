@@ -1,0 +1,61 @@
+@use './variables';
+@use './typography';
+@use './animations';
+@use './forms';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-background);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.demo-intro {
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  gap: 1rem;
+  margin-inline: auto;
+  max-width: 560px;
+  padding: 4rem var(--space-page);
+  text-align: center;
+}
+
+.demo-intro__eyebrow {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.demo-intro h1 {
+  color: var(--color-primary);
+  font-size: clamp(4rem, 22vw, 7rem);
+}
+
+.demo-intro p {
+  margin: 0;
+}
