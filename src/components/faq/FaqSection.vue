@@ -19,6 +19,10 @@ const { locale, t } = useI18n()
       <h2 id="faq-title">
         {{ t('sections.faq') }}
       </h2>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <div class="faq-list">
         <details
           v-for="item in weddingConfig.faq"
@@ -40,8 +44,9 @@ const { locale, t } = useI18n()
 }
 
 details {
-  border-bottom: 1px solid var(--color-border);
-  padding: 0.8rem 0;
+  border-bottom: 2px solid var(--color-border);
+  padding: 1rem 0;
+  text-align: left;
 }
 
 summary {
@@ -49,6 +54,7 @@ summary {
   color: var(--color-primary);
   font-family: var(--font-display);
   font-size: 1.35rem;
+  font-weight: 700;
 }
 
 details p {

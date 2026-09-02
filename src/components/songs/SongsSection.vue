@@ -18,6 +18,10 @@ const { t } = useI18n()
       <h2 id="songs-title">
         {{ t('songs.title') }}
       </h2>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <label class="song-search">
         <span>{{ t('songs.search') }}</span>
         <input type="search">
@@ -62,12 +66,13 @@ const { t } = useI18n()
   display: grid;
   gap: 0.5rem;
   margin-top: 2rem;
+  text-align: left;
 }
 
 .song-search input {
   min-height: 3rem;
-  border: 1px solid rgb(255 250 246 / 0.32);
-  border-radius: var(--radius-sm);
+  border: 2px solid rgb(255 250 246 / 0.32);
+  border-radius: var(--radius-pill);
   background: rgb(255 250 246 / 0.08);
   color: var(--color-text-inverse);
   font-size: 1rem;
@@ -86,11 +91,14 @@ const { t } = useI18n()
   gap: 0.85rem;
   align-items: center;
   border: 1px solid rgb(255 250 246 / 0.2);
+  border-radius: var(--radius-sm);
   padding: 0.75rem;
+  text-align: left;
 }
 
 .song-card img {
   aspect-ratio: 1;
+  border-radius: var(--radius-sm);
   object-fit: cover;
 }
 

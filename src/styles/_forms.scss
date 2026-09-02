@@ -1,5 +1,5 @@
 button,
-input,
+input:not([type='radio']):not([type='checkbox']),
 textarea,
 select {
   font: inherit;
@@ -7,6 +7,22 @@ select {
 
 button {
   cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  min-height: 3.05rem;
+  border: 2px solid color-mix(in srgb, var(--color-line) 72%, transparent);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+textarea {
+  border-radius: 1.4rem;
+  resize: vertical;
 }
 
 :focus-visible {

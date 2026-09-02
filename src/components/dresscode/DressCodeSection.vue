@@ -19,7 +19,19 @@ const { locale, t } = useI18n()
       <h2 id="dresscode-title">
         {{ getLocalizedText(weddingConfig.dressCode.title, locale) }}
       </h2>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <p>{{ getLocalizedText(weddingConfig.dressCode.description, locale) }}</p>
+      <div
+        class="dresscode-figures"
+        aria-hidden="true"
+      >
+        <span />
+        <span />
+        <span />
+      </div>
       <ul class="dresscode-list">
         <li
           v-for="recommendation in weddingConfig.dressCode.recommendations"
@@ -39,6 +51,20 @@ const { locale, t } = useI18n()
   margin: 2rem 0 0;
   padding: 0;
   list-style: none;
+}
+
+.dresscode-figures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+  margin: 2rem auto 0;
+  max-width: 19rem;
+}
+
+.dresscode-figures span {
+  min-height: 5.5rem;
+  border: 2px solid color-mix(in srgb, var(--color-surface) 58%, transparent);
+  border-radius: 48% 52% 38% 62% / 18% 20% 14% 16%;
 }
 
 .dresscode-list li {

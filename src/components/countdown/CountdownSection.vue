@@ -29,6 +29,10 @@ const remaining = computed(() => {
       <h2 id="countdown-title">
         {{ t('countdown.title') }}
       </h2>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <div class="countdown-grid">
         <div>
           <strong>{{ remaining.days }}</strong>
@@ -63,7 +67,8 @@ const remaining = computed(() => {
   display: grid;
   gap: 0.25rem;
   justify-items: center;
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
   padding: 1rem 0.75rem;
 }
 
@@ -78,7 +83,7 @@ const remaining = computed(() => {
 .countdown-grid span {
   color: var(--color-text-muted);
   font-size: 0.78rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 </style>

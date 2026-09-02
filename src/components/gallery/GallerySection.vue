@@ -18,6 +18,10 @@ const { t } = useI18n()
       <h2 id="gallery-title">
         {{ t('gallery.title') }}
       </h2>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <form class="upload-skeleton">
         <label>
           <span>{{ t('gallery.upload') }}</span>
@@ -56,23 +60,28 @@ const { t } = useI18n()
   display: grid;
   gap: 1rem;
   margin-top: 2rem;
+  text-align: left;
 }
 
 .upload-skeleton label {
   display: grid;
   gap: 0.45rem;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .upload-skeleton input,
 .upload-skeleton button {
   min-height: 3rem;
   width: 100%;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   font-size: 1rem;
 }
 
 .upload-skeleton input {
-  border: 1px solid var(--color-border);
+  border: 2px solid color-mix(in srgb, var(--color-line) 72%, transparent);
   background: var(--color-surface);
   padding: 0.75rem;
 }
@@ -94,11 +103,13 @@ const { t } = useI18n()
 .photo-grid article {
   display: grid;
   gap: 0.45rem;
+  text-align: left;
 }
 
 .photo-grid img {
   width: 100%;
   aspect-ratio: 0.82;
+  border-radius: var(--radius-sm);
   object-fit: cover;
 }
 

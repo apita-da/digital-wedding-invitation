@@ -58,7 +58,7 @@ const getLanguageTitle = (availableLocale: AppLocale) =>
   color: var(--color-text-muted);
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   line-height: 1;
   transition:
     background-color 180ms ease,

@@ -32,6 +32,10 @@ const { t } = useI18n()
         >
           {{ weddingConfig.couple.person1 }} & {{ weddingConfig.couple.person2 }}
         </span>
+        <span
+          class="envelope-intro__line"
+          aria-hidden="true"
+        />
         <span class="envelope-intro__hint">{{ t('envelope.tapHint') }}</span>
       </span>
     </button>
@@ -62,11 +66,13 @@ const { t } = useI18n()
   position: relative;
   display: grid;
   width: min(82vw, 22rem);
-  min-height: 15rem;
+  min-height: 16rem;
   place-items: center;
   border: 1px solid rgb(255 250 246 / 0.46);
   border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--color-primary) 82%, black);
+  background:
+    linear-gradient(135deg, transparent 49%, rgb(255 250 246 / 0.22) 50%, transparent 51%),
+    color-mix(in srgb, var(--color-primary) 82%, black);
   color: inherit;
   box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.18);
 }
@@ -86,6 +92,7 @@ const { t } = useI18n()
   gap: 1rem;
   padding: 2rem 1.25rem;
   border: 1px solid rgb(116 28 50 / 0.18);
+  border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--color-primary);
   text-align: center;
@@ -93,15 +100,29 @@ const { t } = useI18n()
 }
 
 .envelope-intro__names {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 12vw, 3.5rem);
+  font-family: var(--font-hand);
+  font-size: 2.7rem;
   line-height: 0.95;
+}
+
+@media (min-width: 760px) {
+  .envelope-intro__names {
+    font-size: 3.5rem;
+  }
+}
+
+.envelope-intro__line {
+  width: 70%;
+  height: 1px;
+  margin-inline: auto;
+  background: color-mix(in srgb, var(--color-primary) 42%, transparent);
 }
 
 .envelope-intro__hint {
   color: var(--color-text-muted);
   font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 </style>

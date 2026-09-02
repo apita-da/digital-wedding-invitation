@@ -30,6 +30,10 @@ const { locale, t } = useI18n()
         <span>&</span>
         {{ weddingConfig.couple.person2 }}
       </h1>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <p class="hero-section__date">
         {{ formatWeddingDate(weddingConfig.date, locale) }}
       </p>
@@ -55,6 +59,7 @@ const { locale, t } = useI18n()
   place-items: center;
   border: 1px solid rgb(255 250 246 / 0.34);
   border-radius: 50%;
+  opacity: 0.9;
 }
 
 .hero-section__illustration span {
@@ -68,7 +73,15 @@ const { locale, t } = useI18n()
 .hero-section__title {
   display: grid;
   gap: 0.3rem;
-  font-size: clamp(4rem, 21vw, 6.8rem);
+  font-family: var(--font-hand);
+  font-size: 4.6rem;
+  font-weight: 500;
+}
+
+@media (min-width: 760px) {
+  .hero-section__title {
+    font-size: 6.4rem;
+  }
 }
 
 .hero-section__title span {

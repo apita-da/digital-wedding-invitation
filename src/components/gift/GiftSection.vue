@@ -19,6 +19,10 @@ const { locale, t } = useI18n()
       <h2 id="gift-title">
         {{ t('gift.title') }}
       </h2>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <p>{{ getLocalizedText(weddingConfig.gift.message, locale) }}</p>
       <dl class="gift-data">
         <div>
@@ -49,7 +53,7 @@ const { locale, t } = useI18n()
 .gift-data dt {
   color: rgb(255 250 246 / 0.7);
   font-size: 0.78rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 

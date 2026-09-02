@@ -19,6 +19,10 @@ const { locale, t } = useI18n()
       <h2 id="venue-title">
         {{ t('venue.title') }}
       </h2>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <article class="venue-card">
         <div
           class="venue-card__art"
@@ -45,15 +49,18 @@ const { locale, t } = useI18n()
   display: grid;
   gap: 1.4rem;
   margin-top: 2rem;
-  padding: 1.2rem;
-  border: 1px solid var(--color-border);
+  padding: 1rem;
+  border: 2px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  text-align: center;
 }
 
 .venue-card__art {
   min-height: 12rem;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+  border: 2px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+  border-radius: var(--radius-sm);
   background:
     linear-gradient(145deg, transparent 46%, color-mix(in srgb, var(--color-primary) 24%, transparent) 47% 50%, transparent 51%),
     var(--color-background);
@@ -69,13 +76,26 @@ const { locale, t } = useI18n()
   margin: 0;
 }
 
+.venue-card__body h3 {
+  color: var(--color-primary);
+  font-size: 2rem;
+}
+
 .venue-card__time,
 .venue-card__address {
   color: var(--color-text-muted);
 }
 
 .venue-card a {
-  color: var(--color-primary);
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
   font-weight: 700;
+  padding-inline: 1.2rem;
+  text-decoration: none;
 }
 </style>

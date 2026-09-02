@@ -19,7 +19,7 @@ const { locale } = useI18n()
 
 <style scoped lang="scss">
 .footer-section {
-  padding: 3rem var(--space-page);
+  padding: 4rem var(--space-page);
   background: var(--color-primary);
   color: var(--color-text-inverse);
   text-align: center;
@@ -27,8 +27,8 @@ const { locale } = useI18n()
 
 .footer-section p {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-family: var(--font-hand);
+  font-size: 2rem;
 }
 
 .footer-section small {

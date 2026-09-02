@@ -19,6 +19,10 @@ const { locale, t } = useI18n()
       <h2 id="timeline-title">
         {{ t('timeline.title') }}
       </h2>
+      <span
+        class="flourish"
+        aria-hidden="true"
+      />
       <div class="timeline-list">
         <article
           v-for="item in weddingConfig.timeline"
@@ -41,15 +45,19 @@ const { locale, t } = useI18n()
 .timeline-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.15rem 0.9rem;
   margin-top: 2rem;
 }
 
 .timeline-item {
   display: grid;
   gap: 0.55rem;
-  padding: 1rem;
+  min-height: 10rem;
+  place-items: center;
+  padding: 1.2rem 0.8rem;
   border: 1px solid rgb(255 250 246 / 0.26);
+  border-radius: 42% 58% 45% 55% / 12% 14% 10% 12%;
+  text-align: center;
 }
 
 .timeline-item__icon {
@@ -60,6 +68,11 @@ const { locale, t } = useI18n()
 .timeline-item h3,
 .timeline-item p {
   margin: 0;
+}
+
+.timeline-item h3 {
+  font-size: 1.45rem;
+  text-transform: uppercase;
 }
 
 .timeline-item p {
