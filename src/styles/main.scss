@@ -32,6 +32,13 @@ svg {
   background: var(--color-background);
 }
 
+.app-header {
+  position: fixed;
+  z-index: 10;
+  top: 1rem;
+  right: 1rem;
+}
+
 .demo-intro {
   display: grid;
   min-height: 100vh;
@@ -58,4 +65,10 @@ svg {
 
 .demo-intro p {
   margin: 0;
+}
+
+.demo-intro__date {
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 8vw, 2rem);
 }
