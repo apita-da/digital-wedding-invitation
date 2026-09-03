@@ -51,6 +51,9 @@ export default {
     avoidTitle: 'Mejor evitar',
     recommendedTitle: 'Nos encanta',
   },
+  faq: {
+    title: 'Preguntas',
+  },
   rsvp: {
     allergies: 'Alergias o intolerancias',
     allergiesPlaceholder: 'Todo estará riquísimo, pero queremos saberlo',
@@ -143,7 +146,13 @@ export default {
     uploading: 'Subiendo...',
   },
   gift: {
+    bizumLabel: 'Bizum',
+    copy: 'Copiar',
+    copyAria: 'Copiar {label}',
+    demoNote: 'Datos ficticios para la demo.',
+    ibanLabel: 'IBAN',
     title: 'Regalo',
+    transferTitle: 'Para quien quiera tener un detalle',
   },
   countdown: {
     days: 'Días',
