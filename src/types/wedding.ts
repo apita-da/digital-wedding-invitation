@@ -38,6 +38,8 @@ export interface WeddingConfig {
     title: LocalizedText
     description: LocalizedText
     recommendations: LocalizedText[]
+    avoid: LocalizedText[]
+    note: LocalizedText
   }
   faq: FaqItem[]
   gift: {

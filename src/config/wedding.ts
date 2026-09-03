@@ -88,14 +88,32 @@ export const weddingConfig: WeddingConfig = {
     },
     recommendations: [
       {
-        es: 'Tonos suaves, tejidos con movimiento y calzado cómodo para jardín.',
-        en: 'Soft tones, flowing fabrics, and garden-friendly shoes.',
+        es: 'Colores vivos, cómodos y con ganas de celebración.',
+        en: 'Vivid colors, comfortable fits, and a celebratory mood.',
       },
       {
         es: 'Traje o conjunto arreglado sin necesidad de etiqueta estricta.',
         en: 'A suit or polished outfit without a strict formal dress code.',
       },
+      {
+        es: 'Vestidos, monos o conjuntos con movimiento para bailar sin pensarlo.',
+        en: 'Dresses, jumpsuits, or outfits with movement for dancing freely.',
+      },
     ],
+    avoid: [
+      {
+        es: 'Blanco total, marfil o tonos demasiado nupciales.',
+        en: 'Full white, ivory, or tones that feel too bridal.',
+      },
+      {
+        es: 'Tacones muy finos: la boda será en una finca con zonas de jardín.',
+        en: 'Very thin heels: the wedding will be at an estate with garden areas.',
+      },
+    ],
+    note: {
+      es: 'La idea es venir guapos, cómodos y preparados para alargar la fiesta.',
+      en: 'The idea is to arrive looking great, feeling comfortable, and ready to keep the party going.',
+    },
   },
   faq: [
     {

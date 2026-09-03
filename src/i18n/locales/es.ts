@@ -47,6 +47,10 @@ export default {
   timeline: {
     title: 'El plan del día',
   },
+  dressCode: {
+    avoidTitle: 'Mejor evitar',
+    recommendedTitle: 'Nos encanta',
+  },
   rsvp: {
     allergies: 'Alergias o intolerancias',
     allergiesPlaceholder: 'Todo estará riquísimo, pero queremos saberlo',
