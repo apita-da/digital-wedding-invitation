@@ -174,6 +174,7 @@ onBeforeUnmount(() => {
   font-weight: 900;
   padding-inline: 0.95rem;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .gift-section__note {

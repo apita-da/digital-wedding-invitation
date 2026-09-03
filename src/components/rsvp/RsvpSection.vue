@@ -389,5 +389,17 @@ const setTransport = (event: Event) => {
 .rsvp-success h3 {
   color: var(--color-primary);
   font-size: 2rem;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 23rem) {
+  .rsvp-radio-group {
+    padding-inline: 0.75rem;
+  }
+
+  .rsvp-success h3 {
+    font-size: 1.65rem;
+  }
 }
 </style>

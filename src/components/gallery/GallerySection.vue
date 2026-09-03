@@ -366,6 +366,7 @@ onBeforeUnmount(() => {
 
 .gallery-dropzone__copy strong {
   font-size: 1.03rem;
+  overflow-wrap: anywhere;
 }
 
 .gallery-dropzone__copy span {
@@ -438,6 +439,7 @@ onBeforeUnmount(() => {
   color: var(--color-text-inverse);
   font-weight: 800;
   padding-inline: 1.35rem;
+  overflow-wrap: anywhere;
 }
 
 .gallery-form__submit:disabled {

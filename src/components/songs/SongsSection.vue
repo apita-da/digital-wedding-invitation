@@ -400,23 +400,24 @@ onBeforeUnmount(() => {
 
 .song-table th:nth-child(1),
 .song-table td:nth-child(1) {
-  width: 44%;
+  width: 41%;
 }
 
 .song-table th:nth-child(2),
 .song-table td:nth-child(2) {
-  width: 40%;
+  width: 37%;
 }
 
 .song-table th:nth-child(3),
 .song-table td:nth-child(3) {
-  width: 16%;
+  width: 22%;
 }
 
 .song-table td {
   color: color-mix(in srgb, var(--color-text) 88%, transparent);
   font-size: 0.84rem;
   line-height: 1.18;
+  overflow-wrap: anywhere;
 }
 
 .song-table__empty {
@@ -590,11 +591,19 @@ onBeforeUnmount(() => {
 @media (max-width: 25rem) {
   .song-table th,
   .song-table td {
-    padding-inline: 0.42rem;
+    padding-inline: 0.36rem;
+  }
+
+  .song-table th {
+    font-size: 0.72rem;
   }
 
   .song-table td {
-    font-size: 0.76rem;
+    font-size: 0.72rem;
+  }
+
+  .song-modal__actions {
+    grid-template-columns: 1fr;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher.vue'
@@ -11,6 +11,8 @@ const emit = defineEmits<{
 }>()
 
 const isOpening = ref(false)
+const envelopeVideo = ref<HTMLVideoElement | null>(null)
+const envelopeVideoUrl = computed(() => weddingConfig.assets.envelopeVideoUrl.trim())
 
 const openEnvelope = () => {
   if (isOpening.value) {
@@ -18,13 +20,18 @@ const openEnvelope = () => {
   }
 
   isOpening.value = true
+  if (envelopeVideo.value) {
+    envelopeVideo.value.currentTime = 0
+    void envelopeVideo.value.play()
+  }
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const openDelay = envelopeVideoUrl.value ? weddingConfig.assets.envelopeVideoOpenDelayMs : 1120
   window.setTimeout(
     () => {
       emit('open')
     },
-    prefersReducedMotion ? 80 : 1120,
+    prefersReducedMotion ? 80 : openDelay,
   )
 }
 </script>
@@ -38,42 +45,70 @@ const openEnvelope = () => {
       <LanguageSwitcher />
     </div>
 
-    <!-- A future video envelope can replace this button's inner artwork while keeping the open event. -->
     <button
       class="envelope-intro__button"
-      :class="{ 'envelope-intro__button--opening': isOpening }"
+      :class="{
+        'envelope-intro__button--opening': isOpening,
+        'envelope-intro__button--video': envelopeVideoUrl,
+      }"
       type="button"
       :aria-label="t('common.openInvitation')"
       :disabled="isOpening"
       @click="openEnvelope"
     >
       <span
-        class="envelope-intro__back"
-        aria-hidden="true"
-      />
-      <span
-        class="envelope-intro__flap"
-        aria-hidden="true"
-      />
-      <span class="envelope-intro__paper">
-        <span
-          id="envelope-title"
-          class="envelope-intro__names"
-        >
-          {{ weddingConfig.couple.person1 }} & {{ weddingConfig.couple.person2 }}
-        </span>
-        <span
-          class="envelope-intro__line"
-          aria-hidden="true"
+        v-if="envelopeVideoUrl"
+        class="envelope-intro__video-wrap"
+      >
+        <video
+          ref="envelopeVideo"
+          class="envelope-intro__video"
+          :src="envelopeVideoUrl"
+          muted
+          playsinline
+          preload="metadata"
         />
-        <span class="envelope-intro__hint">
-          {{ isOpening ? t('envelope.opening') : t('envelope.tapHint') }}
+        <span class="envelope-intro__video-label">
+          <span
+            id="envelope-title"
+            class="envelope-intro__names"
+          >
+            {{ weddingConfig.couple.person1 }} & {{ weddingConfig.couple.person2 }}
+          </span>
+          <span class="envelope-intro__hint">
+            {{ isOpening ? t('envelope.opening') : t('envelope.tapHint') }}
+          </span>
         </span>
       </span>
-      <span
-        class="envelope-intro__front"
-        aria-hidden="true"
-      />
+      <template v-else>
+        <span
+          class="envelope-intro__back"
+          aria-hidden="true"
+        />
+        <span
+          class="envelope-intro__flap"
+          aria-hidden="true"
+        />
+        <span class="envelope-intro__paper">
+          <span
+            id="envelope-title"
+            class="envelope-intro__names"
+          >
+            {{ weddingConfig.couple.person1 }} & {{ weddingConfig.couple.person2 }}
+          </span>
+          <span
+            class="envelope-intro__line"
+            aria-hidden="true"
+          />
+          <span class="envelope-intro__hint">
+            {{ isOpening ? t('envelope.opening') : t('envelope.tapHint') }}
+          </span>
+        </span>
+        <span
+          class="envelope-intro__front"
+          aria-hidden="true"
+        />
+      </template>
     </button>
   </section>
 </template>
@@ -82,10 +117,11 @@ const openEnvelope = () => {
 .envelope-intro {
   position: relative;
   display: grid;
-  min-height: 100svh;
+  min-height: 100dvh;
   place-items: center;
   overflow: hidden;
-  padding: 5rem var(--space-page);
+  padding: calc(4.25rem + env(safe-area-inset-top)) var(--space-page)
+    calc(3.25rem + env(safe-area-inset-bottom));
   background:
     radial-gradient(circle at 20% 20%, rgb(255 250 246 / 0.14), transparent 26rem),
     var(--color-background-alt);
@@ -114,15 +150,16 @@ const openEnvelope = () => {
 
 .envelope-intro__language {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: calc(0.85rem + env(safe-area-inset-top));
+  right: max(0.85rem, env(safe-area-inset-right));
+  z-index: 5;
 }
 
 .envelope-intro__button {
   position: relative;
   display: grid;
-  width: min(82vw, 22rem);
-  min-height: 16rem;
+  width: min(100%, 22rem);
+  min-height: min(58svh, 17rem);
   place-items: center;
   border: 1px solid rgb(255 250 246 / 0.46);
   border-radius: var(--radius-sm);
@@ -132,6 +169,8 @@ const openEnvelope = () => {
   color: inherit;
   box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.18);
   perspective: 80rem;
+  overflow: hidden;
+  padding: 0;
   transition:
     opacity 360ms ease,
     transform 360ms ease;
@@ -206,10 +245,48 @@ const openEnvelope = () => {
   transform: translateY(-6.5rem) scale(1.04);
 }
 
+.envelope-intro__video-wrap {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: end center;
+  background: var(--color-background-alt);
+}
+
+.envelope-intro__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.envelope-intro__video-label {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  gap: 0.55rem;
+  padding: 1.1rem;
+  background: linear-gradient(180deg, transparent, rgb(79 16 34 / 0.84));
+  color: var(--color-text-inverse);
+  text-align: center;
+}
+
+.envelope-intro__button--video .envelope-intro__hint {
+  color: rgb(255 250 246 / 0.8);
+}
+
+.envelope-intro__button--video.envelope-intro__button--opening {
+  opacity: 0.88;
+  transform: translateY(0.35rem) scale(0.985);
+}
+
 .envelope-intro__names {
   font-family: var(--font-hand);
   font-size: 2.7rem;
   line-height: 0.95;
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 760px) {
@@ -231,6 +308,25 @@ const openEnvelope = () => {
   font-weight: 800;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+@media (max-width: 23rem) {
+  .envelope-intro__button {
+    min-height: 14.75rem;
+  }
+
+  .envelope-intro__paper {
+    width: 82%;
+    padding-inline: 1rem;
+  }
+
+  .envelope-intro__names {
+    font-size: 2.25rem;
+  }
+
+  .envelope-intro__hint {
+    font-size: 0.72rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

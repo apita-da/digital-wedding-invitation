@@ -23,6 +23,10 @@ export interface WeddingConfig {
   }
   date: string
   intro: LocalizedText
+  assets: {
+    envelopeVideoUrl: string
+    envelopeVideoOpenDelayMs: number
+  }
   venue: {
     name: string
     address: string

@@ -15,7 +15,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
 }
 
@@ -26,12 +26,12 @@ svg {
 }
 
 #app {
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .app-shell {
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--color-background);
 }
 
@@ -94,9 +94,11 @@ svg {
 
 .section-inner > h2 {
   font-family: var(--font-hand);
-  font-size: 3.1rem;
+  font-size: 2.65rem;
   font-weight: 500;
   letter-spacing: 0;
+  line-height: 0.98;
+  overflow-wrap: anywhere;
 }
 
 .section-inner > p {
@@ -132,6 +134,16 @@ svg {
 a {
   color: inherit;
   text-underline-offset: 0.18em;
+}
+
+@media (max-width: 23rem) {
+  .section-inner > h2 {
+    font-size: 2.35rem;
+  }
+
+  .section-kicker {
+    font-size: 0.68rem;
+  }
 }
 
 .invitation-reveal-enter-active {

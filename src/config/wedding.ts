@@ -10,6 +10,10 @@ export const weddingConfig: WeddingConfig = {
     es: 'Nos hace muchísima ilusión celebrar este día con vosotros. Esta invitación irá creciendo con todos los detalles importantes.',
     en: 'We are so excited to celebrate this day with you. This invitation will keep growing with every important detail.',
   },
+  assets: {
+    envelopeVideoUrl: '',
+    envelopeVideoOpenDelayMs: 1600,
+  },
   venue: {
     name: 'Lugar de celebración',
     address: 'Camino de los Olivos, 12, 28000 Madrid',
