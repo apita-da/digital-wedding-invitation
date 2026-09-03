@@ -1,5 +1,6 @@
 export default {
   common: {
+    cancel: 'Cancel',
     copied: 'Copied',
     demoLabel: 'First demo',
     language: 'Language',
@@ -77,10 +78,33 @@ export default {
   },
   songs: {
     acceptedTitle: 'Songs already on our list',
+    emptyResults: 'No songs matched that search.',
+    errorGuestName: 'Tell us your name to send the suggestion.',
+    errorSuggest: 'We could not save the song. Please try again.',
     guestName: 'Your name',
+    guestNamePlaceholder: 'Your name',
+    intro: 'What is a wedding without the best music? Add the songs that must be played on the day.',
+    loadingAccepted: 'Loading songs...',
+    modalEyebrow: 'Song suggestion',
+    modalTitle: 'What is your name?',
+    perfect: 'Perfect',
+    resultsLabel: 'Song results',
     search: 'Search for a song',
+    searching: 'Searching songs...',
+    searchPlaceholder: 'Search by song or artist',
+    sending: 'Sending...',
+    sendSuggestion: 'Send suggestion',
+    status: {
+      accepted: 'Accepted',
+      pending: 'Pending',
+      rejected: 'Rejected',
+    },
     suggest: 'Suggest song',
+    suggestAria: 'Suggest {title}',
     success: 'Song suggested. Thank you!',
+    thanksMessage:
+      '"{title}" has been suggested. The couple will review it and, if they love it, add it to the official playlist.',
+    thanksTitle: 'Thanks {name}!',
     title: 'Our song list',
   },
   gallery: {

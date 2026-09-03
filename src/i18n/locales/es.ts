@@ -1,5 +1,6 @@
 export default {
   common: {
+    cancel: 'Cancelar',
     copied: 'Copiado',
     demoLabel: 'Primera demo',
     language: 'Idioma',
@@ -77,10 +78,33 @@ export default {
   },
   songs: {
     acceptedTitle: 'Las canciones que ya forman parte de nuestra lista',
+    emptyResults: 'No hemos encontrado canciones con esa búsqueda.',
+    errorGuestName: 'Dinos tu nombre para enviar la sugerencia.',
+    errorSuggest: 'No hemos podido guardar la canción. Inténtalo de nuevo.',
     guestName: 'Tu nombre',
+    guestNamePlaceholder: 'Tu nombre',
+    intro: '¿Qué es una boda sin la mejor música? Añade las canciones que no pueden faltar este día.',
+    loadingAccepted: 'Cargando canciones...',
+    modalEyebrow: 'Sugerencia musical',
+    modalTitle: '¿Cuál es tu nombre?',
+    perfect: 'Perfecto',
+    resultsLabel: 'Resultados de canciones',
     search: 'Busca una canción',
+    searching: 'Buscando canciones...',
+    searchPlaceholder: 'Busca por canción o artista',
+    sending: 'Enviando...',
+    sendSuggestion: 'Enviar sugerencia',
+    status: {
+      accepted: 'Aceptada',
+      pending: 'Pendiente',
+      rejected: 'Rechazada',
+    },
     suggest: 'Sugerir canción',
+    suggestAria: 'Sugerir {title}',
     success: 'Canción sugerida. Gracias!',
+    thanksMessage:
+      '"{title}" ha sido sugerida. Los novios la revisarán y, si les encanta, la añadirán a la playlist oficial.',
+    thanksTitle: 'Gracias {name}!',
     title: 'Nuestra lista de canciones',
   },
   gallery: {
