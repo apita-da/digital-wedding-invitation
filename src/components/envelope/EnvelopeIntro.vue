@@ -1,10 +1,32 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher.vue'
 import { weddingConfig } from '@/config/wedding'
 
 const { t } = useI18n()
+const emit = defineEmits<{
+  open: []
+}>()
+
+const isOpening = ref(false)
+
+const openEnvelope = () => {
+  if (isOpening.value) {
+    return
+  }
+
+  isOpening.value = true
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  window.setTimeout(
+    () => {
+      emit('open')
+    },
+    prefersReducedMotion ? 80 : 1120,
+  )
+}
 </script>
 
 <template>
@@ -18,9 +40,16 @@ const { t } = useI18n()
 
     <button
       class="envelope-intro__button"
+      :class="{ 'envelope-intro__button--opening': isOpening }"
       type="button"
       :aria-label="t('common.openInvitation')"
+      :disabled="isOpening"
+      @click="openEnvelope"
     >
+      <span
+        class="envelope-intro__back"
+        aria-hidden="true"
+      />
       <span
         class="envelope-intro__flap"
         aria-hidden="true"
@@ -36,8 +65,14 @@ const { t } = useI18n()
           class="envelope-intro__line"
           aria-hidden="true"
         />
-        <span class="envelope-intro__hint">{{ t('envelope.tapHint') }}</span>
+        <span class="envelope-intro__hint">
+          {{ isOpening ? t('envelope.opening') : t('envelope.tapHint') }}
+        </span>
       </span>
+      <span
+        class="envelope-intro__front"
+        aria-hidden="true"
+      />
     </button>
   </section>
 </template>
@@ -54,6 +89,26 @@ const { t } = useI18n()
     radial-gradient(circle at 20% 20%, rgb(255 250 246 / 0.14), transparent 26rem),
     var(--color-background-alt);
   color: var(--color-text-inverse);
+}
+
+.envelope-intro::before,
+.envelope-intro::after {
+  position: absolute;
+  width: 12rem;
+  height: 12rem;
+  border: 1px solid rgb(255 250 246 / 0.2);
+  border-radius: 50%;
+  content: '';
+}
+
+.envelope-intro::before {
+  top: 7rem;
+  left: -5rem;
+}
+
+.envelope-intro::after {
+  right: -4rem;
+  bottom: 6rem;
 }
 
 .envelope-intro__language {
@@ -75,6 +130,38 @@ const { t } = useI18n()
     color-mix(in srgb, var(--color-primary) 82%, black);
   color: inherit;
   box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.18);
+  perspective: 80rem;
+  transition:
+    opacity 360ms ease,
+    transform 360ms ease;
+}
+
+.envelope-intro__button:disabled {
+  cursor: default;
+}
+
+.envelope-intro__button--opening {
+  transform: translateY(0.5rem) scale(0.98);
+}
+
+.envelope-intro__back,
+.envelope-intro__front {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.envelope-intro__back {
+  background:
+    linear-gradient(45deg, transparent 49%, rgb(255 250 246 / 0.16) 50%, transparent 51%),
+    color-mix(in srgb, var(--color-primary) 88%, black);
+}
+
+.envelope-intro__front {
+  clip-path: polygon(0 45%, 50% 78%, 100% 45%, 100% 100%, 0 100%);
+  background: color-mix(in srgb, var(--color-primary) 88%, black);
+  box-shadow: inset 0 1px 0 rgb(255 250 246 / 0.12);
 }
 
 .envelope-intro__flap {
@@ -83,6 +170,16 @@ const { t } = useI18n()
   clip-path: polygon(0 0, 50% 48%, 100% 0);
   background: color-mix(in srgb, var(--color-primary-soft) 42%, var(--color-surface));
   opacity: 0.9;
+  transform-origin: 50% 0;
+  transition:
+    opacity 520ms ease,
+    transform 760ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  z-index: 3;
+}
+
+.envelope-intro__button--opening .envelope-intro__flap {
+  opacity: 0.78;
+  transform: rotateX(178deg);
 }
 
 .envelope-intro__paper {
@@ -97,6 +194,15 @@ const { t } = useI18n()
   color: var(--color-primary);
   text-align: center;
   transform: translateY(-0.5rem);
+  transition:
+    opacity 640ms ease,
+    transform 820ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  z-index: 2;
+}
+
+.envelope-intro__button--opening .envelope-intro__paper {
+  opacity: 0;
+  transform: translateY(-6.5rem) scale(1.04);
 }
 
 .envelope-intro__names {
@@ -124,5 +230,23 @@ const { t } = useI18n()
   font-weight: 800;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .envelope-intro__button,
+  .envelope-intro__flap,
+  .envelope-intro__paper {
+    transition-duration: 1ms;
+  }
+
+  .envelope-intro__button--opening,
+  .envelope-intro__button--opening .envelope-intro__paper,
+  .envelope-intro__button--opening .envelope-intro__flap {
+    transform: none;
+  }
+
+  .envelope-intro__button--opening .envelope-intro__paper {
+    opacity: 0;
+  }
 }
 </style>

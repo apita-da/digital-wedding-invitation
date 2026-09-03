@@ -12,8 +12,10 @@ export default {
     couple: 'María & Calum',
     eyebrow: 'We are getting married',
     intro: 'An elegant, warm digital wedding invitation ready to grow.',
+    scrollCue: 'View the invitation',
   },
   envelope: {
+    opening: 'Opening...',
     tapHint: 'Tap to open',
   },
   language: {

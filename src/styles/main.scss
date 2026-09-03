@@ -35,6 +35,10 @@ svg {
   background: var(--color-background);
 }
 
+.app-shell:focus {
+  outline: none;
+}
+
 .app-shell::before {
   position: fixed;
   z-index: -1;
@@ -128,6 +132,33 @@ svg {
 a {
   color: inherit;
   text-underline-offset: 0.18em;
+}
+
+.invitation-reveal-enter-active {
+  transition:
+    opacity 620ms ease,
+    transform 620ms ease;
+}
+
+.invitation-reveal-enter-from {
+  opacity: 0;
+  transform: translateY(1.5rem);
+}
+
+.invitation-reveal-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invitation-reveal-enter-active {
+    transition: opacity 1ms linear;
+  }
+
+  .invitation-reveal-enter-from {
+    opacity: 0;
+    transform: none;
+  }
 }
 
 @media (min-width: 760px) {

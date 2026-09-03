@@ -20,7 +20,8 @@ const { locale, t } = useI18n()
         class="hero-section__illustration"
         aria-hidden="true"
       >
-        <span />
+        <span class="hero-section__moon" />
+        <span class="hero-section__car" />
       </div>
       <h1
         id="hero-title"
@@ -40,6 +41,12 @@ const { locale, t } = useI18n()
       <p class="hero-section__intro">
         {{ getLocalizedText(weddingConfig.intro, locale) }}
       </p>
+      <a
+        class="hero-section__cue"
+        href="#venue-title"
+      >
+        {{ t('hero.scrollCue') }}
+      </a>
     </div>
   </section>
 </template>
@@ -48,26 +55,81 @@ const { locale, t } = useI18n()
 .hero-section__inner {
   display: grid;
   justify-items: center;
-  gap: 1.5rem;
+  gap: 1.35rem;
+  min-height: calc(100svh - (var(--section-y) * 2));
+  align-content: center;
   text-align: center;
 }
 
 .hero-section__illustration {
+  position: relative;
   display: grid;
   width: min(62vw, 17rem);
   aspect-ratio: 1;
   place-items: center;
-  border: 1px solid rgb(255 250 246 / 0.34);
+  border: 1px solid rgb(255 250 246 / 0.28);
   border-radius: 50%;
   opacity: 0.9;
 }
 
-.hero-section__illustration span {
-  width: 54%;
-  aspect-ratio: 0.62;
+.hero-section__illustration::before,
+.hero-section__illustration::after {
+  position: absolute;
+  height: 1px;
+  background: currentColor;
+  content: '';
+  opacity: 0.45;
+}
+
+.hero-section__illustration::before {
+  width: 70%;
+  transform: rotate(-8deg) translateY(-1.7rem);
+}
+
+.hero-section__illustration::after {
+  width: 48%;
+  transform: rotate(6deg) translateY(2rem);
+}
+
+.hero-section__moon {
+  position: absolute;
+  top: 1.7rem;
+  right: 3.2rem;
+  width: 2.1rem;
+  aspect-ratio: 1;
   border: 1.5px solid currentColor;
-  border-radius: 50% 50% 46% 46%;
-  opacity: 0.62;
+  border-left-color: transparent;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.hero-section__car {
+  position: relative;
+  width: 50%;
+  height: 2.6rem;
+  border: 1.5px solid currentColor;
+  border-top: 0;
+  opacity: 0.68;
+}
+
+.hero-section__car::before,
+.hero-section__car::after {
+  position: absolute;
+  bottom: -0.55rem;
+  width: 1rem;
+  aspect-ratio: 1;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  background: var(--color-background-alt);
+  content: '';
+}
+
+.hero-section__car::before {
+  left: 0.8rem;
+}
+
+.hero-section__car::after {
+  right: 0.8rem;
 }
 
 .hero-section__title {
@@ -91,8 +153,9 @@ const { locale, t } = useI18n()
 .hero-section__date {
   display: inline-grid;
   margin: 0;
-  padding: 0.7rem 1rem;
-  border-block: 1px solid rgb(255 250 246 / 0.36);
+  padding: 0.85rem 1.4rem;
+  border: 1px solid rgb(255 250 246 / 0.36);
+  border-radius: 46% 54% 48% 52% / 18% 22% 16% 20%;
   font-family: var(--font-display);
   font-size: 1.4rem;
 }
@@ -101,5 +164,18 @@ const { locale, t } = useI18n()
   max-width: 28rem;
   margin: 0;
   color: rgb(255 250 246 / 0.82);
+}
+
+.hero-section__cue {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.4rem;
+  border-bottom: 1px solid currentColor;
+  color: rgb(255 250 246 / 0.82);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
 }
 </style>

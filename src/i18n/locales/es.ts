@@ -12,8 +12,10 @@ export default {
     couple: 'María & Calum',
     eyebrow: 'Nos casamos',
     intro: 'Una invitación digital de boda elegante, cercana y preparada para crecer.',
+    scrollCue: 'Ver la invitación',
   },
   envelope: {
+    opening: 'Abriendo...',
     tapHint: 'Toca para abrir',
   },
   language: {
