@@ -37,8 +37,10 @@ export default {
     venue: 'Dónde será',
   },
   venue: {
+    address: 'Dirección',
     directions: 'Cómo llegar',
-    flip: 'Ver dirección',
+    flip: 'Pulsa para saber cómo llegar',
+    showFront: 'Volver al lugar',
     title: '¿Dónde será?',
   },
   timeline: {

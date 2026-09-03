@@ -38,6 +38,7 @@ const openEnvelope = () => {
       <LanguageSwitcher />
     </div>
 
+    <!-- A future video envelope can replace this button's inner artwork while keeping the open event. -->
     <button
       class="envelope-intro__button"
       :class="{ 'envelope-intro__button--opening': isOpening }"

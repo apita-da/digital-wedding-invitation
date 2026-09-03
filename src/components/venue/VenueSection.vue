@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
+import VenueCard from '@/components/venue/VenueCard.vue'
 import { weddingConfig } from '@/config/wedding'
-import { getLocalizedText } from '@/i18n/localized'
 
-const { locale, t } = useI18n()
+const { t } = useI18n()
 </script>
 
 <template>
@@ -23,79 +23,7 @@ const { locale, t } = useI18n()
         class="flourish"
         aria-hidden="true"
       />
-      <article class="venue-card">
-        <div
-          class="venue-card__art"
-          aria-hidden="true"
-        />
-        <div class="venue-card__body">
-          <p class="venue-card__time">
-            {{ weddingConfig.venue.time }}
-          </p>
-          <h3>{{ weddingConfig.venue.name }}</h3>
-          <p>{{ getLocalizedText(weddingConfig.venue.description, locale) }}</p>
-          <p class="venue-card__address">
-            {{ weddingConfig.venue.address }}
-          </p>
-          <a :href="weddingConfig.venue.mapUrl">{{ t('venue.directions') }}</a>
-        </div>
-      </article>
+      <VenueCard :venue="weddingConfig.venue" />
     </div>
   </section>
 </template>
-
-<style scoped lang="scss">
-.venue-card {
-  display: grid;
-  gap: 1.4rem;
-  margin-top: 2rem;
-  padding: 1rem;
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-soft);
-  text-align: center;
-}
-
-.venue-card__art {
-  min-height: 12rem;
-  border: 2px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
-  border-radius: var(--radius-sm);
-  background:
-    linear-gradient(145deg, transparent 46%, color-mix(in srgb, var(--color-primary) 24%, transparent) 47% 50%, transparent 51%),
-    var(--color-background);
-}
-
-.venue-card__body {
-  display: grid;
-  gap: 0.7rem;
-}
-
-.venue-card__body p,
-.venue-card__body h3 {
-  margin: 0;
-}
-
-.venue-card__body h3 {
-  color: var(--color-primary);
-  font-size: 2rem;
-}
-
-.venue-card__time,
-.venue-card__address {
-  color: var(--color-text-muted);
-}
-
-.venue-card a {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-pill);
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
-  font-weight: 700;
-  padding-inline: 1.2rem;
-  text-decoration: none;
-}
-</style>
