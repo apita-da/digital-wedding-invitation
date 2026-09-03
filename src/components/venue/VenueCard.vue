@@ -46,15 +46,16 @@ const toggleFlip = () => {
           </p>
           <h3>{{ props.venue.name }}</h3>
           <p>{{ getLocalizedText(props.venue.description, locale) }}</p>
-          <button
-            class="venue-card__button"
-            type="button"
-            :aria-pressed="isFlipped"
-            @click="toggleFlip"
-          >
-            {{ flipLabel }}
-          </button>
         </div>
+        <button
+          class="venue-card__flip-cue"
+          type="button"
+          :aria-label="flipLabel"
+          :aria-pressed="isFlipped"
+          @click="toggleFlip"
+        >
+          <span aria-hidden="true" />
+        </button>
       </div>
 
       <div
@@ -71,22 +72,23 @@ const toggleFlip = () => {
             {{ props.venue.address }}
           </p>
           <a
-            class="venue-card__button"
+            class="venue-card__map-link"
             :href="props.venue.mapUrl"
             target="_blank"
             rel="noreferrer"
           >
             {{ t('venue.directions') }}
           </a>
-          <button
-            class="venue-card__ghost"
-            type="button"
-            :aria-pressed="isFlipped"
-            @click="toggleFlip"
-          >
-            {{ t('venue.showFront') }}
-          </button>
         </div>
+        <button
+          class="venue-card__flip-cue venue-card__flip-cue--back"
+          type="button"
+          :aria-label="t('venue.showFront')"
+          :aria-pressed="isFlipped"
+          @click="toggleFlip"
+        >
+          <span aria-hidden="true" />
+        </button>
       </div>
     </div>
   </article>
@@ -265,28 +267,50 @@ const toggleFlip = () => {
   text-transform: uppercase;
 }
 
-.venue-card__button,
-.venue-card__ghost {
-  display: inline-flex;
-  min-height: 2.9rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-pill);
+.venue-card__map-link {
+  color: var(--color-primary);
+  font-size: 0.88rem;
   font-weight: 800;
-  padding-inline: 1.25rem;
+  text-underline-offset: 0.24em;
+  text-transform: uppercase;
 }
 
-.venue-card__button {
-  border: 0;
+.venue-card__flip-cue {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: grid;
+  width: 2.65rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 34%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-surface) 74%, transparent);
+  color: var(--color-primary);
+}
+
+.venue-card__flip-cue span {
+  width: 0.72rem;
+  aspect-ratio: 1;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg) translate(-0.08rem, 0.08rem);
+}
+
+.venue-card__flip-cue--back {
+  right: auto;
+  left: 1rem;
+}
+
+.venue-card__flip-cue--back span {
+  transform: rotate(225deg) translate(-0.08rem, 0.08rem);
+}
+
+.venue-card__flip-cue:hover,
+.venue-card__flip-cue:focus-visible {
   background: var(--color-primary);
   color: var(--color-text-inverse);
   text-decoration: none;
-}
-
-.venue-card__ghost {
-  border: 1px solid var(--color-border);
-  background: transparent;
-  color: var(--color-primary);
 }
 
 @media (prefers-reduced-motion: reduce) {

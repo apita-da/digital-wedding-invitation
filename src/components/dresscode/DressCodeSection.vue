@@ -9,7 +9,7 @@ const { locale, t } = useI18n()
 
 <template>
   <section
-    class="invitation-section invitation-section--dark"
+    class="invitation-section invitation-section--light"
     aria-labelledby="dresscode-title"
   >
     <div class="section-inner">
@@ -63,12 +63,14 @@ const { locale, t } = useI18n()
 
 .dresscode-figures span {
   min-height: 5.5rem;
-  border: 2px solid color-mix(in srgb, var(--color-surface) 58%, transparent);
+  border: 2px solid color-mix(in srgb, var(--color-primary) 34%, transparent);
   border-radius: 48% 52% 38% 62% / 18% 20% 14% 16%;
+  background: color-mix(in srgb, var(--color-blush, var(--color-surface)) 35%, transparent);
 }
 
 .dresscode-list li {
-  border-top: 1px solid rgb(255 250 246 / 0.24);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   padding-top: 0.8rem;
 }
 </style>

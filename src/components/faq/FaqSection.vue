@@ -9,7 +9,7 @@ const { locale, t } = useI18n()
 
 <template>
   <section
-    class="invitation-section invitation-section--light"
+    class="invitation-section invitation-section--dark"
     aria-labelledby="faq-title"
   >
     <div class="section-inner">
@@ -44,14 +44,14 @@ const { locale, t } = useI18n()
 }
 
 details {
-  border-bottom: 2px solid var(--color-border);
+  border-bottom: 2px solid rgb(255 250 246 / 0.24);
   padding: 1rem 0;
   text-align: left;
 }
 
 summary {
   cursor: pointer;
-  color: var(--color-primary);
+  color: var(--color-text-inverse);
   font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 700;
@@ -59,6 +59,6 @@ summary {
 
 details p {
   margin: 0.8rem 0 0;
-  color: var(--color-text-muted);
+  color: rgb(255 250 246 / 0.72);
 }
 </style>
