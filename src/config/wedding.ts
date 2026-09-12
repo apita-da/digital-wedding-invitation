@@ -81,44 +81,6 @@ export const weddingConfig: WeddingConfig = {
   rsvp: {
     deadline: '2027-02-01',
   },
-  dressCode: {
-    title: {
-      es: 'Elegante y natural',
-      en: 'Elegant and natural',
-    },
-    description: {
-      es: 'Queremos que os sintáis cómodos, guapos y preparados para un día largo de celebración.',
-      en: 'We want you to feel comfortable, beautiful, and ready for a long day of celebration.',
-    },
-    recommendations: [
-      {
-        es: 'Colores vivos, cómodos y con ganas de celebración.',
-        en: 'Vivid colors, comfortable fits, and a celebratory mood.',
-      },
-      {
-        es: 'Traje o conjunto arreglado sin necesidad de etiqueta estricta.',
-        en: 'A suit or polished outfit without a strict formal dress code.',
-      },
-      {
-        es: 'Vestidos, monos o conjuntos con movimiento para bailar sin pensarlo.',
-        en: 'Dresses, jumpsuits, or outfits with movement for dancing freely.',
-      },
-    ],
-    avoid: [
-      {
-        es: 'Blanco total, marfil o tonos demasiado nupciales.',
-        en: 'Full white, ivory, or tones that feel too bridal.',
-      },
-      {
-        es: 'Tacones muy finos: la boda será en una finca con zonas de jardín.',
-        en: 'Very thin heels: the wedding will be at an estate with garden areas.',
-      },
-    ],
-    note: {
-      es: 'La idea es venir guapos, cómodos y preparados para alargar la fiesta.',
-      en: 'The idea is to arrive looking great, feeling comfortable, and ready to keep the party going.',
-    },
-  },
   faq: [
     {
       id: 'bus',
@@ -170,8 +132,18 @@ export const weddingConfig: WeddingConfig = {
       es: 'Vuestra compañía es el mejor regalo. Si aun así queréis tener un detalle, os dejamos una opción ficticia para la demo.',
       en: 'Your company is the best gift. If you would still like to give something, here is a fictional option for the demo.',
     },
-    iban: 'ES00 0000 0000 0000 0000 0000',
-    bizum: '+34 600 000 000',
+    accounts: [
+      {
+        id: 'maria',
+        holder: 'María',
+        iban: 'ES00 0000 0000 0000 0000 0000',
+      },
+      {
+        id: 'calum',
+        holder: 'Calum',
+        iban: 'ES11 1111 1111 1111 1111 1111',
+      },
+    ],
   },
   footer: {
     message: {

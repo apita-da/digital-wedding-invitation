@@ -26,11 +26,6 @@ const toggleFaq = (id: string) => {
       <h2 id="faq-title">
         {{ t('faq.title') }}
       </h2>
-      <span
-        class="flourish"
-        aria-hidden="true"
-      />
-
       <div class="faq-list">
         <article
           v-for="item in weddingConfig.faq"

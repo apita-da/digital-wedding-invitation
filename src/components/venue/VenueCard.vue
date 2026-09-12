@@ -27,35 +27,44 @@ const toggleFlip = () => {
     <div class="venue-card__inner">
       <div
         class="venue-card__face venue-card__face--front"
+        role="button"
+        tabindex="0"
+        :aria-label="flipLabel"
         :aria-hidden="isFlipped"
         :inert="isFlipped"
+        @click="toggleFlip"
+        @keydown.enter.prevent="toggleFlip"
+        @keydown.space.prevent="toggleFlip"
       >
-        <div
-          class="venue-card__art"
+        <div class="venue-card__front-layout">
+          <div class="venue-card__celebration">
+            <div
+              class="venue-card__art"
+              aria-hidden="true"
+            >
+              <span class="venue-card__roof" />
+              <span class="venue-card__tower" />
+              <span class="venue-card__door" />
+              <span class="venue-card__tree venue-card__tree--left" />
+              <span class="venue-card__tree venue-card__tree--right" />
+            </div>
+            <div class="venue-card__body">
+              <p class="venue-card__label">
+                {{ t('venue.celebration') }}
+              </p>
+              <h3>{{ props.venue.name }}</h3>
+              <p class="venue-card__time">
+                {{ props.venue.time }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <span
+          class="venue-card__flip-cue"
           aria-hidden="true"
         >
-          <span class="venue-card__roof" />
-          <span class="venue-card__tower" />
-          <span class="venue-card__door" />
-          <span class="venue-card__tree venue-card__tree--left" />
-          <span class="venue-card__tree venue-card__tree--right" />
-        </div>
-        <div class="venue-card__body">
-          <p class="venue-card__time">
-            {{ props.venue.time }}
-          </p>
-          <h3>{{ props.venue.name }}</h3>
-          <p>{{ getLocalizedText(props.venue.description, locale) }}</p>
-        </div>
-        <button
-          class="venue-card__flip-cue"
-          type="button"
-          :aria-label="flipLabel"
-          :aria-pressed="isFlipped"
-          @click="toggleFlip"
-        >
-          <span aria-hidden="true" />
-        </button>
+          <span />
+        </span>
       </div>
 
       <div
@@ -68,6 +77,7 @@ const toggleFlip = () => {
             {{ t('venue.address') }}
           </p>
           <h3>{{ props.venue.name }}</h3>
+          <p>{{ getLocalizedText(props.venue.description, locale) }}</p>
           <p class="venue-card__address">
             {{ props.venue.address }}
           </p>
@@ -96,13 +106,13 @@ const toggleFlip = () => {
 
 <style scoped lang="scss">
 .venue-card {
-  margin-top: 2rem;
+  margin-top: 2.75rem;
   perspective: 90rem;
 }
 
 .venue-card__inner {
   position: relative;
-  min-height: 31rem;
+  min-height: 21.5rem;
   transform-style: preserve-3d;
   transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -116,54 +126,95 @@ const toggleFlip = () => {
   inset: 0;
   display: grid;
   align-content: center;
-  gap: 1.4rem;
-  padding: 1rem;
-  border: 2px solid var(--color-border);
+  gap: 1.25rem;
+  padding: 0.9rem;
+  border: 0;
   border-radius: var(--radius-sm);
   backface-visibility: hidden;
-  background: var(--color-surface);
-  box-shadow: var(--shadow-soft);
+  background: transparent;
+  color: var(--color-primary);
   text-align: center;
 }
 
+.venue-card__face--front {
+  cursor: pointer;
+}
+
 .venue-card__face--back {
+  border: 2px solid color-mix(in srgb, var(--color-primary) 34%, transparent);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
   transform: rotateY(180deg);
+}
+
+.venue-card__front-layout {
+  display: grid;
+  justify-items: center;
+}
+
+.venue-card__celebration {
+  position: relative;
+  display: grid;
+  width: min(100%, 23.5rem);
+  gap: 0.35rem;
+  padding: 1.05rem 1rem 1.35rem;
+  border: 2px solid color-mix(in srgb, var(--color-primary) 78%, transparent);
+  color: var(--color-primary);
+}
+
+.venue-card__celebration::before,
+.venue-card__celebration::after {
+  position: absolute;
+  right: 0.55rem;
+  left: 0.55rem;
+  height: 0.8rem;
+  background:
+    radial-gradient(circle at 0.36rem 50%, transparent 0.28rem, currentColor 0.3rem 0.36rem, transparent 0.38rem)
+      0 0 / 1rem 100% repeat-x;
+  content: '';
+}
+
+.venue-card__celebration::before {
+  top: -0.48rem;
+}
+
+.venue-card__celebration::after {
+  bottom: -0.48rem;
 }
 
 .venue-card__art {
   position: relative;
   display: grid;
-  min-height: 13rem;
+  min-height: 11.5rem;
   place-items: center;
   overflow: hidden;
-  border: 2px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
-  border-radius: var(--radius-sm);
-  background:
-    linear-gradient(180deg, transparent 68%, color-mix(in srgb, var(--color-primary) 11%, transparent) 69%),
-    var(--color-background);
+  background: transparent;
 }
 
 .venue-card__art::before {
   position: absolute;
-  inset: 1.1rem;
-  border: 2px solid color-mix(in srgb, var(--color-primary) 38%, transparent);
-  border-radius: 48% 52% 45% 55% / 8% 12% 10% 9%;
+  right: 1.1rem;
+  bottom: 1.55rem;
+  left: 1.1rem;
+  height: 1px;
+  background: currentColor;
   content: '';
+  opacity: 0.35;
 }
 
 .venue-card__roof,
 .venue-card__tower,
 .venue-card__door {
   position: absolute;
-  border: 2px solid var(--color-primary);
-  opacity: 0.66;
+  border: 2px solid currentColor;
+  opacity: 0.64;
 }
 
 .venue-card__roof {
-  width: 8rem;
-  height: 4.8rem;
+  width: 9.2rem;
+  height: 5rem;
   border-bottom: 0;
-  transform: translateY(0.2rem);
+  transform: translateY(0.65rem);
 }
 
 .venue-card__roof::before,
@@ -186,10 +237,10 @@ const toggleFlip = () => {
 }
 
 .venue-card__tower {
-  width: 1.45rem;
-  height: 6rem;
+  width: 1.55rem;
+  height: 6.3rem;
   border-bottom: 0;
-  transform: translate(-3.2rem, -1.1rem);
+  transform: translate(-3.55rem, -0.85rem);
 }
 
 .venue-card__tower::before {
@@ -205,7 +256,7 @@ const toggleFlip = () => {
 }
 
 .venue-card__door {
-  bottom: 3.6rem;
+  bottom: 2.7rem;
   width: 1.5rem;
   height: 2.3rem;
   border-radius: 1rem 1rem 0 0;
@@ -213,10 +264,10 @@ const toggleFlip = () => {
 
 .venue-card__tree {
   position: absolute;
-  bottom: 3.2rem;
+  bottom: 2rem;
   width: 1.2rem;
   height: 3.7rem;
-  border-left: 2px solid var(--color-primary);
+  border-left: 2px solid currentColor;
   opacity: 0.48;
 }
 
@@ -232,16 +283,16 @@ const toggleFlip = () => {
 }
 
 .venue-card__tree--left {
-  left: 4rem;
+  left: 3.25rem;
 }
 
 .venue-card__tree--right {
-  right: 4rem;
+  right: 3.25rem;
 }
 
 .venue-card__body {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.3rem;
   justify-items: center;
 }
 
@@ -252,7 +303,11 @@ const toggleFlip = () => {
 
 .venue-card__body h3 {
   color: var(--color-primary);
-  font-size: 2.05rem;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: uppercase;
 }
 
 .venue-card__time,
@@ -262,9 +317,24 @@ const toggleFlip = () => {
 }
 
 .venue-card__label {
-  font-size: 0.78rem;
-  font-weight: 800;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 900;
   text-transform: uppercase;
+}
+
+.venue-card__body--back {
+  gap: 0.85rem;
+}
+
+.venue-card__body--back h3 {
+  font-size: 1.75rem;
+}
+
+.venue-card__body--back p:not(.venue-card__label):not(.venue-card__address) {
+  max-width: 25rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
 }
 
 .venue-card__map-link {
@@ -277,15 +347,14 @@ const toggleFlip = () => {
 
 .venue-card__flip-cue {
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
+  right: 0.6rem;
+  bottom: 0.6rem;
   display: grid;
-  width: 2.65rem;
+  width: 2rem;
   aspect-ratio: 1;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 34%, transparent);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--color-surface) 74%, transparent);
+  border: 0;
+  background: transparent;
   color: var(--color-primary);
 }
 
@@ -308,9 +377,34 @@ const toggleFlip = () => {
 
 .venue-card__flip-cue:hover,
 .venue-card__flip-cue:focus-visible {
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
+  color: var(--color-primary-deep);
   text-decoration: none;
+}
+
+@media (max-width: 23rem) {
+  .venue-card {
+    margin-top: 2.25rem;
+  }
+
+  .venue-card__inner {
+    min-height: 20rem;
+  }
+
+  .venue-card__celebration {
+    padding-inline: 0.65rem;
+  }
+
+  .venue-card__art {
+    min-height: 10.2rem;
+  }
+
+  .venue-card__roof {
+    width: 7.8rem;
+  }
+
+  .venue-card__tower {
+    transform: translate(-3rem, -0.85rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

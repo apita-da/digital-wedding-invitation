@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { weddingConfig } from '@/config/wedding'
@@ -7,10 +7,11 @@ import { getLocalizedText } from '@/i18n/localized'
 
 const { locale, t } = useI18n()
 
-type GiftCopyKey = 'iban' | 'bizum'
+type GiftCopyKey = string
 
 const copiedKey = ref<GiftCopyKey | null>(null)
 let copiedTimeout: ReturnType<typeof window.setTimeout> | undefined
+const giftAccounts = computed(() => weddingConfig.gift.accounts)
 
 const copyGiftValue = async (key: GiftCopyKey, value: string) => {
   try {
@@ -45,11 +46,6 @@ onBeforeUnmount(() => {
       <h2 id="gift-title">
         {{ t('gift.title') }}
       </h2>
-      <span
-        class="flourish"
-        aria-hidden="true"
-      />
-
       <p class="gift-section__message">
         {{ getLocalizedText(weddingConfig.gift.message, locale) }}
       </p>
@@ -66,27 +62,18 @@ onBeforeUnmount(() => {
         </p>
 
         <dl class="gift-data">
-          <div>
-            <dt>{{ t('gift.ibanLabel') }}</dt>
-            <dd>{{ weddingConfig.gift.iban }}</dd>
+          <div
+            v-for="account in giftAccounts"
+            :key="account.id"
+          >
+            <dt>{{ t('gift.accountHolder', { name: account.holder }) }}</dt>
+            <dd>{{ account.iban }}</dd>
             <button
               type="button"
-              :aria-label="t('gift.copyAria', { label: t('gift.ibanLabel') })"
-              @click="copyGiftValue('iban', weddingConfig.gift.iban)"
+              :aria-label="t('gift.copyAria', { label: t('gift.accountHolder', { name: account.holder }) })"
+              @click="copyGiftValue(account.id, account.iban)"
             >
-              {{ copiedKey === 'iban' ? t('common.copied') : t('gift.copy') }}
-            </button>
-          </div>
-
-          <div>
-            <dt>{{ t('gift.bizumLabel') }}</dt>
-            <dd>{{ weddingConfig.gift.bizum }}</dd>
-            <button
-              type="button"
-              :aria-label="t('gift.copyAria', { label: t('gift.bizumLabel') })"
-              @click="copyGiftValue('bizum', weddingConfig.gift.bizum)"
-            >
-              {{ copiedKey === 'bizum' ? t('common.copied') : t('gift.copy') }}
+              {{ copiedKey === account.id ? t('common.copied') : t('gift.copy') }}
             </button>
           </div>
         </dl>
@@ -101,21 +88,31 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .gift-section {
-  background:
-    linear-gradient(180deg, rgb(79 16 34 / 0.12), transparent 16rem),
-    var(--color-background-alt);
+  background: var(--color-background-alt);
+}
+
+.gift-section :deep(.section-inner > h2) {
+  font-family: var(--font-display);
+  font-size: 2.35rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .gift-section__message {
-  color: rgb(255 250 246 / 0.82);
+  color: rgb(255 250 246 / 0.88);
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .gift-card {
   margin-top: 2rem;
-  border: 1px solid rgb(255 250 246 / 0.32);
+  border: 2px solid rgb(255 250 246 / 0.72);
   border-radius: var(--radius-sm);
-  background: rgb(255 250 246 / 0.06);
-  padding: 1rem;
+  background: transparent;
+  padding: 1.15rem;
   text-align: left;
 }
 
@@ -123,7 +120,7 @@ onBeforeUnmount(() => {
   margin: 0 0 0.95rem;
   color: var(--color-text-inverse);
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   font-weight: 800;
 }
 
@@ -138,8 +135,8 @@ onBeforeUnmount(() => {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.5rem 0.8rem;
   align-items: center;
-  border-top: 1px solid rgb(255 250 246 / 0.22);
-  padding: 0.9rem 0;
+  border-top: 1px solid rgb(255 250 246 / 0.48);
+  padding: 1rem 0;
 }
 
 .gift-data div:last-child {
@@ -148,7 +145,7 @@ onBeforeUnmount(() => {
 
 .gift-data dt {
   grid-column: 1 / -1;
-  color: rgb(255 250 246 / 0.62);
+  color: rgb(255 250 246 / 0.78);
   font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -166,11 +163,12 @@ onBeforeUnmount(() => {
 
 .gift-data button {
   min-height: 2.45rem;
-  border: 1px solid rgb(255 250 246 / 0.34);
+  border: 0;
   border-radius: var(--radius-pill);
   background: var(--color-text-inverse);
   color: var(--color-primary);
-  font-size: 0.76rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
   font-weight: 900;
   padding-inline: 0.95rem;
   text-transform: uppercase;
@@ -178,7 +176,7 @@ onBeforeUnmount(() => {
 }
 
 .gift-section__note {
-  color: rgb(255 250 246 / 0.64);
+  color: rgb(255 250 246 / 0.72);
   font-size: 0.9rem;
 }
 

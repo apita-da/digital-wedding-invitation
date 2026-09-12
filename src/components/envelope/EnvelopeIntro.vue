@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import LanguageSwitcher from '@/components/shared/LanguageSwitcher.vue'
 import { weddingConfig } from '@/config/wedding'
 
 const { t } = useI18n()
@@ -41,10 +40,6 @@ const openEnvelope = () => {
     class="envelope-intro"
     aria-labelledby="envelope-title"
   >
-    <div class="envelope-intro__language">
-      <LanguageSwitcher />
-    </div>
-
     <button
       class="envelope-intro__button"
       :class="{
@@ -146,13 +141,6 @@ const openEnvelope = () => {
 .envelope-intro::after {
   right: -4rem;
   bottom: 6rem;
-}
-
-.envelope-intro__language {
-  position: absolute;
-  top: calc(0.85rem + env(safe-area-inset-top));
-  right: max(0.85rem, env(safe-area-inset-right));
-  z-index: 5;
 }
 
 .envelope-intro__button {

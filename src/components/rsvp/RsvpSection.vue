@@ -11,11 +11,11 @@ const { locale, t } = useI18n()
 
 const initialFormData = (): RsvpFormData => ({
   fullName: '',
-  attending: null,
   companionName: '',
-  allergies: '',
+  childrenNames: '',
   transport: null,
-  observations: '',
+  allergies: '',
+  specialDiet: '',
 })
 
 const form = reactive<RsvpFormData>(initialFormData())
@@ -38,10 +38,6 @@ const validateForm = () => {
 
   if (!form.fullName.trim()) {
     errors.fullName = t('rsvp.errorName')
-  }
-
-  if (form.attending === null) {
-    errors.attending = t('rsvp.errorAttending')
   }
 
   return Object.keys(errors).length === 0
@@ -82,7 +78,7 @@ const setTransport = (event: Event) => {
 
 <template>
   <section
-    class="invitation-section invitation-section--light"
+    class="invitation-section invitation-section--light rsvp-section"
     aria-labelledby="rsvp-title"
   >
     <div class="section-inner">
@@ -93,7 +89,7 @@ const setTransport = (event: Event) => {
         {{ t('rsvp.title') }}
       </h2>
       <span
-        class="flourish"
+        class="rsvp-section__ornament"
         aria-hidden="true"
       />
       <p class="rsvp-section__intro">
@@ -125,39 +121,6 @@ const setTransport = (event: Event) => {
           </small>
         </label>
 
-        <fieldset
-          class="rsvp-field rsvp-radio-group"
-          :aria-invalid="Boolean(errors.attending)"
-          :aria-describedby="errors.attending ? 'rsvp-attending-error' : undefined"
-        >
-          <legend>{{ t('rsvp.attending') }}</legend>
-          <label class="rsvp-radio">
-            <input
-              v-model="form.attending"
-              type="radio"
-              name="attending"
-              :value="true"
-            >
-            <span>{{ t('rsvp.yes') }}</span>
-          </label>
-          <label class="rsvp-radio">
-            <input
-              v-model="form.attending"
-              type="radio"
-              name="attending"
-              :value="false"
-            >
-            <span>{{ t('rsvp.no') }}</span>
-          </label>
-          <small
-            v-if="errors.attending"
-            id="rsvp-attending-error"
-            class="rsvp-field__error"
-          >
-            {{ errors.attending }}
-          </small>
-        </fieldset>
-
         <label class="rsvp-field">
           <span>{{ t('rsvp.companion') }} <em>{{ t('common.optional') }}</em></span>
           <input
@@ -169,16 +132,16 @@ const setTransport = (event: Event) => {
         </label>
 
         <label class="rsvp-field">
-          <span>{{ t('rsvp.allergies') }} <em>{{ t('common.optional') }}</em></span>
-          <input
-            v-model="form.allergies"
-            type="text"
-            :placeholder="t('rsvp.allergiesPlaceholder')"
-          >
+          <span>{{ t('rsvp.children') }} <em>{{ t('common.optional') }}</em></span>
+          <textarea
+            v-model="form.childrenNames"
+            rows="3"
+            :placeholder="t('rsvp.childrenPlaceholder')"
+          />
         </label>
 
         <label class="rsvp-field">
-          <span>{{ t('rsvp.transport') }} <em>{{ t('common.optional') }}</em></span>
+          <span>{{ t('rsvp.transport') }}</span>
           <select
             :value="form.transport ?? ''"
             @change="setTransport"
@@ -186,25 +149,46 @@ const setTransport = (event: Event) => {
             <option value="">
               {{ t('rsvp.transportPlaceholder') }}
             </option>
-            <option value="bus">
-              {{ t('rsvp.transportBus') }}
+            <option value="yes">
+              {{ t('rsvp.transportYes') }}
             </option>
-            <option value="own">
-              {{ t('rsvp.transportOwn') }}
+            <option value="no">
+              {{ t('rsvp.transportNo') }}
             </option>
-            <option value="none">
-              {{ t('rsvp.transportNone') }}
+            <option value="unsure">
+              {{ t('rsvp.transportUnsure') }}
             </option>
           </select>
         </label>
 
         <label class="rsvp-field">
-          <span>{{ t('rsvp.observations') }} <em>{{ t('common.optional') }}</em></span>
+          <span>{{ t('rsvp.allergies') }} <em>{{ t('common.optional') }}</em></span>
           <textarea
-            v-model="form.observations"
-            rows="4"
-            :placeholder="t('rsvp.observationsPlaceholder')"
+            v-model="form.allergies"
+            rows="3"
+            :placeholder="t('rsvp.allergiesPlaceholder')"
           />
+        </label>
+
+        <label class="rsvp-field">
+          <span>{{ t('rsvp.specialDiet') }} <em>{{ t('common.optional') }}</em></span>
+          <select v-model="form.specialDiet">
+            <option value="">
+              {{ t('rsvp.specialDietPlaceholder') }}
+            </option>
+            <option value="none">
+              {{ t('rsvp.specialDietNone') }}
+            </option>
+            <option value="vegetarian">
+              {{ t('rsvp.specialDietVegetarian') }}
+            </option>
+            <option value="vegan">
+              {{ t('rsvp.specialDietVegan') }}
+            </option>
+            <option value="other">
+              {{ t('rsvp.specialDietOther') }}
+            </option>
+          </select>
         </label>
 
         <p
@@ -250,6 +234,28 @@ const setTransport = (event: Event) => {
 </template>
 
 <style scoped lang="scss">
+.rsvp-section :deep(.section-inner > h2) {
+  font-family: var(--font-display);
+  font-size: 2.45rem;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rsvp-section__ornament {
+  display: block;
+  width: min(100%, 28rem);
+  height: 3.4rem;
+  margin: 1.25rem auto 1.55rem;
+  color: var(--color-primary);
+  background:
+    radial-gradient(ellipse 1.08rem 1.05rem at 1.2rem 50%, transparent 54%, currentColor 56% 61%, transparent 63%)
+      0 50% / 3.1rem 2.8rem repeat-x,
+    linear-gradient(90deg, currentColor, currentColor) center / 100% 2px no-repeat;
+  mask-image: linear-gradient(90deg, transparent, black 8% 92%, transparent);
+}
+
 .rsvp-section__intro {
   color: var(--color-text-muted);
 }
@@ -268,6 +274,7 @@ const setTransport = (event: Event) => {
   color: var(--color-primary);
   font-size: 0.78rem;
   font-weight: 800;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -282,7 +289,7 @@ const setTransport = (event: Event) => {
 .rsvp-field textarea,
 .rsvp-field select {
   width: 100%;
-  border-color: color-mix(in srgb, var(--color-line) 72%, transparent);
+  border-color: var(--color-primary);
   background: var(--color-surface);
   color: var(--color-text);
   padding: 0.78rem 0.95rem;
@@ -294,33 +301,6 @@ const setTransport = (event: Event) => {
 
 .rsvp-field input[aria-invalid='true'] {
   border-color: var(--color-accent);
-}
-
-.rsvp-radio-group {
-  border: 2px solid color-mix(in srgb, var(--color-line) 72%, transparent);
-  border-radius: var(--radius-sm);
-  padding: 0.95rem;
-}
-
-.rsvp-radio-group legend {
-  padding-inline: 0.2rem;
-}
-
-.rsvp-radio {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--color-text);
-  font-size: 1rem;
-  font-weight: 650;
-  text-transform: none;
-}
-
-.rsvp-radio input {
-  width: 1.1rem;
-  height: 1.1rem;
-  accent-color: var(--color-primary);
 }
 
 .rsvp-field__error {
@@ -347,8 +327,12 @@ const setTransport = (event: Event) => {
   border-radius: var(--radius-pill);
   background: var(--color-primary);
   color: var(--color-text-inverse);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
   padding-inline: 1.35rem;
+  text-transform: uppercase;
 }
 
 .rsvp-form__submit:disabled {
@@ -394,10 +378,6 @@ const setTransport = (event: Event) => {
 }
 
 @media (max-width: 23rem) {
-  .rsvp-radio-group {
-    padding-inline: 0.75rem;
-  }
-
   .rsvp-success h3 {
     font-size: 1.65rem;
   }

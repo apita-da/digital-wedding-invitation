@@ -1,14 +1,12 @@
-export type AttendanceValue = true | false | null
-
-export type TransportValue = 'bus' | 'own' | 'none' | null
+export type TransportValue = 'yes' | 'no' | 'unsure' | null
 
 export interface RsvpFormData {
   fullName: string
-  attending: AttendanceValue
   companionName: string
-  allergies: string
+  childrenNames: string
   transport: TransportValue
-  observations: string
+  allergies: string
+  specialDiet: string
 }
 
 export interface RsvpResponse {

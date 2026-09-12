@@ -114,10 +114,9 @@ onBeforeUnmount(() => {
         {{ t('songs.title') }}
       </h2>
       <span
-        class="flourish"
+        class="songs-section__ornament"
         aria-hidden="true"
       />
-
       <p class="songs-section__intro">
         {{ t('songs.intro') }}
       </p>
@@ -311,14 +310,27 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .songs-section {
-  border-top: 0.9rem solid var(--color-primary);
+  background: var(--color-blush);
 }
 
 .songs-section :deep(.section-inner > h2) {
   font-family: var(--font-display);
-  font-size: 1.78rem;
+  font-size: 1.85rem;
   font-weight: 800;
   line-height: 1.1;
+}
+
+.songs-section__ornament {
+  display: block;
+  width: min(100%, 27rem);
+  height: 3.2rem;
+  margin: 1rem auto 1.25rem;
+  color: var(--color-primary);
+  background:
+    radial-gradient(ellipse 1.02rem 1rem at 1.15rem 50%, transparent 54%, currentColor 56% 61%, transparent 63%)
+      0 50% / 3rem 2.7rem repeat-x,
+    linear-gradient(90deg, currentColor, currentColor) center / 100% 2px no-repeat;
+  mask-image: linear-gradient(90deg, transparent, black 8% 92%, transparent);
 }
 
 .visually-hidden {
@@ -353,7 +365,7 @@ onBeforeUnmount(() => {
   width: min(100%, 24rem);
   min-height: 2.95rem;
   border-color: var(--color-primary);
-  background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+  background: var(--color-background);
   color: var(--color-text);
   padding: 0.72rem 1.15rem;
 }
@@ -366,8 +378,7 @@ onBeforeUnmount(() => {
   margin-top: 1.35rem;
   border: 2px solid var(--color-primary);
   border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
-  box-shadow: var(--shadow-soft);
+  background: var(--color-background);
   overflow: hidden;
 }
 

@@ -38,18 +38,14 @@ export interface WeddingConfig {
   rsvp: {
     deadline: string
   }
-  dressCode: {
-    title: LocalizedText
-    description: LocalizedText
-    recommendations: LocalizedText[]
-    avoid: LocalizedText[]
-    note: LocalizedText
-  }
   faq: FaqItem[]
   gift: {
     message: LocalizedText
-    iban: string
-    bizum: string
+    accounts: {
+      id: string
+      holder: string
+      iban: string
+    }[]
   }
   footer: {
     message: LocalizedText
