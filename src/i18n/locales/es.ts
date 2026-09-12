@@ -96,7 +96,6 @@ export default {
     resultsLabel: 'Resultados de canciones',
     search: 'Busca una canción',
     searching: 'Buscando canciones...',
-    searchHint: 'Selecciona una canción de los resultados para sugerirla.',
     searchPlaceholder: 'Buscar canciones en Spotify...',
     selectAria: 'Seleccionar {title}',
     sending: 'Enviando...',

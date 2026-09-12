@@ -24,8 +24,8 @@ let searchTimeout: ReturnType<typeof window.setTimeout> | undefined
 
 const hasQuery = computed(() => Boolean(query.value.trim()))
 const acceptedSongs = computed(() => acceptedSuggestions.value.map((suggestion) => suggestion.song))
-const tableSongs = computed(() => (hasQuery.value ? searchResults.value : acceptedSongs.value))
-const hasTableSongs = computed(() => tableSongs.value.length > 0)
+const hasAcceptedSongs = computed(() => acceptedSongs.value.length > 0)
+const hasSearchResults = computed(() => searchResults.value.length > 0)
 
 const clearGuestNameError = () => {
   delete errors.guestName
@@ -121,34 +121,70 @@ onBeforeUnmount(() => {
         {{ t('songs.intro') }}
       </p>
 
-      <label class="song-search">
-        <span class="visually-hidden">{{ t('songs.search') }}</span>
-        <input
-          v-model="query"
-          type="search"
-          :placeholder="t('songs.searchPlaceholder')"
-        >
-      </label>
+      <div class="song-search-area">
+        <label class="song-search">
+          <span class="visually-hidden">{{ t('songs.search') }}</span>
+          <input
+            v-model="query"
+            type="search"
+            :placeholder="t('songs.searchPlaceholder')"
+          >
+        </label>
 
-      <p
-        v-if="hasQuery"
-        class="songs-section__hint"
-      >
-        {{ t('songs.searchHint') }}
-      </p>
+        <div
+          v-if="hasQuery"
+          class="spotify-results"
+          aria-live="polite"
+        >
+          <p
+            v-if="isSearching"
+            class="spotify-results__empty"
+          >
+            {{ t('songs.searching') }}
+          </p>
+          <p
+            v-else-if="!hasSearchResults"
+            class="spotify-results__empty"
+          >
+            {{ t('songs.emptyResults') }}
+          </p>
+          <ul
+            v-else
+            class="spotify-results__list"
+          >
+            <li
+              v-for="song in searchResults"
+              :key="song.id"
+            >
+              <span>
+                <strong>{{ song.title }}</strong>
+                <small>{{ song.artist }}</small>
+              </span>
+              <button
+                class="spotify-results__add"
+                type="button"
+                :aria-label="t('songs.selectAria', { title: song.title })"
+                @click="openSuggestionModal(song)"
+              >
+                +
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <div class="song-table-wrap">
         <p
-          v-if="isSearching || (!hasQuery && isLoadingAccepted)"
+          v-if="isLoadingAccepted"
           class="song-table__empty"
         >
-          {{ isSearching ? t('songs.searching') : t('songs.loadingAccepted') }}
+          {{ t('songs.loadingAccepted') }}
         </p>
         <p
-          v-else-if="!hasTableSongs"
+          v-else-if="!hasAcceptedSongs"
           class="song-table__empty"
         >
-          {{ hasQuery ? t('songs.emptyResults') : t('songs.emptyAccepted') }}
+          {{ t('songs.emptyAccepted') }}
         </p>
 
         <table
@@ -170,23 +206,14 @@ onBeforeUnmount(() => {
           </thead>
           <tbody>
             <tr
-              v-for="song in tableSongs"
+              v-for="song in acceptedSongs"
               :key="song.id"
             >
               <td>{{ song.title }}</td>
               <td>{{ song.artist }}</td>
               <td>
-                <button
-                  v-if="hasQuery"
-                  class="song-table__icon"
-                  type="button"
-                  :aria-label="t('songs.selectAria', { title: song.title })"
-                  @click="openSuggestionModal(song)"
-                >
-                  +
-                </button>
                 <a
-                  v-else-if="song.spotifyUrl"
+                  v-if="song.spotifyUrl"
                   class="song-table__icon"
                   :href="song.spotifyUrl"
                   target="_blank"
@@ -350,19 +377,20 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
 }
 
-.songs-section__hint {
-  color: var(--color-text-muted);
-  font-size: 0.86rem;
-  font-weight: 700;
+.song-search-area {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 24rem);
+  margin-top: 1.45rem;
+  margin-inline: auto;
 }
 
 .song-search {
   display: block;
-  margin-top: 1.45rem;
 }
 
 .song-search input {
-  width: min(100%, 24rem);
+  width: 100%;
   min-height: 2.95rem;
   border-color: var(--color-primary);
   background: var(--color-background);
@@ -372,6 +400,110 @@ onBeforeUnmount(() => {
 
 .song-search input::placeholder {
   color: color-mix(in srgb, var(--color-text-muted) 82%, transparent);
+}
+
+.spotify-results {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  right: 0;
+  left: 0;
+  max-height: 16.5rem;
+  border: 1.5px solid color-mix(in srgb, var(--color-primary) 72%, transparent);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  color: var(--color-text);
+  box-shadow: 0 1rem 2.2rem rgb(66 45 50 / 0.16);
+  overflow: auto;
+  scrollbar-color: var(--color-primary) transparent;
+  scrollbar-width: thin;
+  text-align: left;
+}
+
+.spotify-results::-webkit-scrollbar {
+  width: 0.42rem;
+}
+
+.spotify-results::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.spotify-results::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary) 76%, transparent);
+}
+
+.spotify-results__empty {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.9rem 1rem;
+  text-align: center;
+}
+
+.spotify-results__list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.spotify-results__list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.72rem 0.85rem;
+}
+
+.spotify-results__list li:last-child {
+  border-bottom: 0;
+}
+
+.spotify-results__list span {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.spotify-results__list strong,
+.spotify-results__list small {
+  overflow-wrap: anywhere;
+}
+
+.spotify-results__list strong {
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.spotify-results__list small {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.spotify-results__add {
+  display: grid;
+  min-width: 2rem;
+  min-height: 2rem;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 0;
+  line-height: 1;
+}
+
+.spotify-results__add::before {
+  content: '+';
+  display: block;
+  font-size: 1.65rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .song-table-wrap {

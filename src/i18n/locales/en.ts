@@ -96,7 +96,6 @@ export default {
     resultsLabel: 'Song results',
     search: 'Search for a song',
     searching: 'Searching songs...',
-    searchHint: 'Select a result to send it as a suggestion.',
     searchPlaceholder: 'Search songs on Spotify...',
     selectAria: 'Select {title}',
     sending: 'Sending...',
