@@ -1,5 +1,3 @@
-import type { ComposerTranslation } from 'vue-i18n'
-
 import type { AppLocale } from '@/i18n'
 import type { LocalizedText } from '@/types/wedding'
 
@@ -16,5 +14,3 @@ export const formatWeddingDate = (date: string, locale: string): string => {
 
   return dateFormatter.format(new Date(date))
 }
-
-export const translateOptional = (t: ComposerTranslation): string => `(${t('common.optional')})`
