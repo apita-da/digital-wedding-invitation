@@ -5,9 +5,9 @@ import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher.vue'
 import { weddingConfig } from '@/config/wedding'
 import { formatWeddingDate, getLocalizedText } from '@/i18n/localized'
-import countdownFrameUrl from '@/assets/illustrations/countdown_frame_white.svg'
 import planeEnUrl from '@/assets/illustrations/plane_en.png'
 import planeEsUrl from '@/assets/illustrations/plane_es.png'
+import whiteFrameUrl from '@/assets/illustrations/white_frame_transparent.png'
 
 const { locale, t } = useI18n()
 const heroArtworkUrl = computed(() => (locale.value === 'en' ? planeEnUrl : planeEsUrl))
@@ -41,7 +41,7 @@ const heroArtworkUrl = computed(() => (locale.value === 'en' ? planeEnUrl : plan
       <p class="hero-section__date">
         <img
           class="hero-section__date-frame"
-          :src="countdownFrameUrl"
+          :src="whiteFrameUrl"
           alt=""
           aria-hidden="true"
         >
@@ -89,11 +89,11 @@ const heroArtworkUrl = computed(() => (locale.value === 'en' ? planeEnUrl : plan
 .hero-section__date {
   position: relative;
   display: inline-grid;
-  width: min(100%, 23.5rem);
-  min-height: 6.5rem;
+  width: min(100%, 25.5rem);
+  min-height: 5.6rem;
   place-items: center;
   margin: 0;
-  padding: 1.15rem 2.35rem;
+  padding: 1rem 2.8rem;
   border: 0;
   font-family: var(--font-display);
   color: var(--color-text-inverse);
@@ -149,9 +149,9 @@ const heroArtworkUrl = computed(() => (locale.value === 'en' ? planeEnUrl : plan
 
   .hero-section__date {
     font-size: 1.12rem;
-    width: min(100%, 19.5rem);
-    min-height: 5.8rem;
-    padding-inline: 1rem;
+    width: min(100%, 20.5rem);
+    min-height: 4.8rem;
+    padding-inline: 1.8rem;
   }
 }
 </style>

@@ -5,8 +5,8 @@ import { useI18n } from 'vue-i18n'
 import type { WeddingConfig } from '@/types/wedding'
 import { formatWeddingDate } from '@/i18n/localized'
 import { weddingConfig } from '@/config/wedding'
-import venueArtworkUrl from '@/assets/illustrations/coctel_place.png'
-import venueCardFrameUrl from '@/assets/illustrations/venue_card_frame.svg'
+import burdeosFrameUrl from '@/assets/illustrations/burdeos_frame.png'
+import ceremonyPlaceUrl from '@/assets/illustrations/ceremony_place.png'
 
 const props = defineProps<{
   venue: WeddingConfig['venue']
@@ -41,13 +41,19 @@ const toggleFlip = () => {
         @keydown.space.prevent="toggleFlip"
       >
         <div class="venue-card__front-layout">
-          <div class="venue-card__celebration">
+          <div class="venue-card__frame-card venue-card__frame-card--front">
+            <img
+              class="venue-card__frame"
+              :src="burdeosFrameUrl"
+              alt=""
+              aria-hidden="true"
+            >
             <div
               class="venue-card__art"
               aria-hidden="true"
             >
               <img
-                :src="venueArtworkUrl"
+                :src="ceremonyPlaceUrl"
                 alt=""
               >
             </div>
@@ -62,23 +68,23 @@ const toggleFlip = () => {
             </div>
           </div>
         </div>
-        <span
-          class="venue-card__flip-cue"
-          aria-hidden="true"
-        >
-          <span />
-        </span>
       </div>
 
       <div
         class="venue-card__face venue-card__face--back"
+        role="button"
+        tabindex="0"
+        :aria-label="t('venue.showFront')"
         :aria-hidden="!isFlipped"
         :inert="!isFlipped"
+        @click="toggleFlip"
+        @keydown.enter.prevent="toggleFlip"
+        @keydown.space.prevent="toggleFlip"
       >
-        <div class="venue-card__back-card">
+        <div class="venue-card__frame-card venue-card__frame-card--back">
           <img
-            class="venue-card__back-frame"
-            :src="venueCardFrameUrl"
+            class="venue-card__frame"
+            :src="burdeosFrameUrl"
             alt=""
             aria-hidden="true"
           >
@@ -103,19 +109,11 @@ const toggleFlip = () => {
             :href="props.venue.mapUrl"
             target="_blank"
             rel="noreferrer"
+            @click.stop
           >
             {{ t('venue.directions') }}
           </a>
         </div>
-        <button
-          class="venue-card__flip-cue venue-card__flip-cue--back"
-          type="button"
-          :aria-label="t('venue.showFront')"
-          :aria-pressed="isFlipped"
-          @click="toggleFlip"
-        >
-          <span aria-hidden="true" />
-        </button>
       </div>
     </div>
   </article>
@@ -129,7 +127,7 @@ const toggleFlip = () => {
 
 .venue-card__inner {
   position: relative;
-  min-height: 23.5rem;
+  min-height: 24rem;
   transform-style: preserve-3d;
   transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -158,8 +156,8 @@ const toggleFlip = () => {
 }
 
 .venue-card__face--back {
-  background: var(--color-surface);
   box-shadow: none;
+  cursor: pointer;
   transform: rotateY(180deg);
 }
 
@@ -168,29 +166,60 @@ const toggleFlip = () => {
   justify-items: center;
 }
 
-.venue-card__celebration {
+.venue-card__frame-card {
   position: relative;
   display: grid;
   width: min(100%, 26.5rem);
-  gap: 0.75rem;
-  padding: 0;
-  color: var(--color-primary);
+  min-height: 19.2rem;
+  align-content: center;
+  justify-items: center;
+  margin-inline: auto;
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.venue-card__frame-card--front {
+  gap: 0.55rem;
+  padding: 2.1rem 2.35rem 2.45rem;
+}
+
+.venue-card__frame-card--back {
+  padding: 3rem 2.5rem 2.35rem;
+}
+
+.venue-card__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.venue-card__frame-card > :not(.venue-card__frame) {
+  position: relative;
+  z-index: 1;
 }
 
 .venue-card__art {
   display: block;
-  overflow: hidden;
+  width: min(100%, 19.5rem);
+  margin: 0 auto 0.3rem;
 }
 
 .venue-card__art img {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 8.4rem;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: multiply;
 }
 
 .venue-card__body {
   display: grid;
-  gap: 0.35rem;
+  gap: 0.3rem;
   justify-items: center;
 }
 
@@ -200,9 +229,9 @@ const toggleFlip = () => {
 }
 
 .venue-card__body h3 {
-  color: var(--color-primary);
+  color: var(--color-text);
   font-family: var(--font-display);
-  font-size: 1.08rem;
+  font-size: 0.92rem;
   font-weight: 900;
   line-height: 1.15;
   text-transform: uppercase;
@@ -211,49 +240,23 @@ const toggleFlip = () => {
 .venue-card__time,
 .venue-card__address,
 .venue-card__label {
-  color: var(--color-primary-deep);
+  color: var(--color-text);
 }
 
 .venue-card__label {
-  color: var(--color-primary);
+  color: var(--color-text-muted);
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
-.venue-card__back-card {
-  position: relative;
-  display: grid;
-  width: min(100%, 26.5rem);
-  min-height: 19.15rem;
-  align-content: center;
-  justify-items: center;
-  margin-inline: auto;
-  padding: 3rem 2.5rem 2.35rem;
-  color: var(--color-text);
-}
-
-.venue-card__back-frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  pointer-events: none;
-}
-
-.venue-card__back-card > :not(.venue-card__back-frame) {
-  position: relative;
-  z-index: 1;
-}
-
-.venue-card__back-card p,
-.venue-card__back-card h3 {
+.venue-card__frame-card p,
+.venue-card__frame-card h3 {
   margin: 0;
 }
 
-.venue-card__back-card h3,
+.venue-card__frame-card--back h3,
 .venue-card__value {
   color: var(--color-text);
   font-family: var(--font-display);
@@ -263,7 +266,7 @@ const toggleFlip = () => {
   text-align: center;
 }
 
-.venue-card__back-card h3 {
+.venue-card__frame-card--back h3 {
   margin: 0.22rem 0 1.05rem;
   text-transform: uppercase;
 }
@@ -290,61 +293,36 @@ const toggleFlip = () => {
   text-underline-offset: 0.24em;
 }
 
-.venue-card__flip-cue {
-  position: absolute;
-  right: 0.6rem;
-  bottom: 0.6rem;
-  display: grid;
-  width: 2rem;
-  aspect-ratio: 1;
-  place-items: center;
-  border: 0;
-  background: transparent;
-  color: var(--color-primary);
-}
-
-.venue-card__flip-cue span {
-  width: 0.72rem;
-  aspect-ratio: 1;
-  border-top: 2px solid currentColor;
-  border-right: 2px solid currentColor;
-  transform: rotate(45deg) translate(-0.08rem, 0.08rem);
-}
-
-.venue-card__flip-cue--back {
-  right: auto;
-  left: 1rem;
-}
-
-.venue-card__flip-cue--back span {
-  transform: rotate(225deg) translate(-0.08rem, 0.08rem);
-}
-
-.venue-card__flip-cue:hover,
-.venue-card__flip-cue:focus-visible {
-  color: var(--color-primary-deep);
-  text-decoration: none;
-}
-
 @media (max-width: 23rem) {
   .venue-card {
     margin-top: 2.25rem;
   }
 
   .venue-card__inner {
-    min-height: 20rem;
+    min-height: 21rem;
   }
 
-  .venue-card__celebration {
-    padding-inline: 0.65rem;
+  .venue-card__frame-card {
+    min-height: 17.8rem;
   }
 
-  .venue-card__back-card {
-    min-height: 17.75rem;
+  .venue-card__frame-card--front {
+    padding: 1.8rem 1.85rem 2.1rem;
+  }
+
+  .venue-card__frame-card--back {
     padding: 2.5rem 2rem 2.15rem;
   }
 
-  .venue-card__back-card h3,
+  .venue-card__art {
+    width: min(100%, 16.5rem);
+  }
+
+  .venue-card__art img {
+    max-height: 7.4rem;
+  }
+
+  .venue-card__frame-card--back h3,
   .venue-card__value {
     font-size: 0.92rem;
   }

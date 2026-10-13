@@ -3,17 +3,17 @@ import { useI18n } from 'vue-i18n'
 
 import { weddingConfig } from '@/config/wedding'
 import { getLocalizedText } from '@/i18n/localized'
-import venueStampUrl from '@/assets/illustrations/coctal_place_1.png'
-import musicNoteUrl from '@/assets/illustrations/music_note.png'
-import musicSeminoteUrl from '@/assets/illustrations/music_seminote.png'
+import sealCatUrl from '@/assets/illustrations/seal_cat_palette.png'
+import sealCocktailUrl from '@/assets/illustrations/seal_cocktail_palette.png'
+import sealDinnerUrl from '@/assets/illustrations/seal_dinner_palette.png'
 import smallWaveUrl from '@/assets/illustrations/small_wave_white.svg'
 
 const { locale, t } = useI18n()
 
 const stamps = [
-  { id: 'music-note', src: musicNoteUrl },
-  { id: 'venue', src: venueStampUrl },
-  { id: 'music-seminote', src: musicSeminoteUrl },
+  { id: 'cocktail', src: sealCocktailUrl },
+  { id: 'dinner', src: sealDinnerUrl },
+  { id: 'cat', src: sealCatUrl },
 ]
 </script>
 
@@ -120,11 +120,11 @@ const stamps = [
 .timeline-stamp {
   position: relative;
   display: grid;
-  aspect-ratio: 0.76;
+  aspect-ratio: 1;
   place-items: center;
-  border: 1.5px solid rgb(255 248 242 / 0.74);
-  background: var(--color-background);
-  box-shadow: 0 10px 20px rgb(42 14 24 / 0.12);
+  border: 0;
+  background: transparent;
+  box-shadow: 0 10px 20px rgb(42 14 24 / 0.14);
   transform: rotate(-3deg);
   overflow: hidden;
 }
@@ -137,20 +137,11 @@ const stamps = [
   transform: rotate(5deg);
 }
 
-.timeline-stamp::before {
-  position: absolute;
-  inset: -0.28rem;
-  border: 1px solid currentColor;
-  content: '';
-  opacity: 0.48;
-}
-
 .timeline-stamp img {
-  width: 118%;
-  height: 118%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
-  mix-blend-mode: multiply;
 }
 
 @media (max-width: 340px) {

@@ -173,8 +173,13 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 25rem) {
+  .gift-card {
+    border-color: rgb(255 248 242 / 0.28);
+  }
+
   .gift-data div {
     grid-template-columns: minmax(0, 1fr);
+    border-top-color: transparent;
   }
 
   .gift-data button {

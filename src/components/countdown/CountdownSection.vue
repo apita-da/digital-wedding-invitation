@@ -143,26 +143,11 @@ const remaining = computed(() => {
 
 @media (max-width: 760px) {
   .countdown-grid {
-    grid-template-columns: repeat(2, auto);
-    gap: 0.5rem 1.2rem;
-    width: min(100%, 23rem);
-    min-height: 7.6rem;
-    padding: 1.55rem 2.1rem;
-  }
-
-  .countdown-grid strong {
-    font-size: 1.22rem;
-  }
-
-  .countdown-grid span {
-    font-size: 0.98rem;
-  }
-}
-
-@media (max-width: 23rem) {
-  .countdown-grid {
-    width: min(100%, 19.5rem);
-    padding-inline: 1.65rem;
+    grid-template-columns: repeat(4, auto);
+    gap: 0.4rem;
+    width: min(100%, 27rem);
+    min-height: 5.9rem;
+    padding: 1.35rem 1.85rem;
   }
 
   .countdown-grid strong {
@@ -171,6 +156,23 @@ const remaining = computed(() => {
 
   .countdown-grid span {
     font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 23rem) {
+  .countdown-grid {
+    gap: 0.22rem;
+    width: min(100%, 19.25rem);
+    min-height: 5.35rem;
+    padding-inline: 0.9rem;
+  }
+
+  .countdown-grid strong {
+    font-size: 0.86rem;
+  }
+
+  .countdown-grid span {
+    font-size: 0.68rem;
   }
 }
 </style>
