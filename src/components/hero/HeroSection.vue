@@ -11,7 +11,6 @@ import planeEsUrl from '@/assets/illustrations/plane_es.png'
 
 const { locale, t } = useI18n()
 const heroArtworkUrl = computed(() => (locale.value === 'en' ? planeEnUrl : planeEsUrl))
-const dateFrameStyle = computed(() => ({ backgroundImage: `url(${countdownFrameUrl})` }))
 </script>
 
 <template>
@@ -39,11 +38,14 @@ const dateFrameStyle = computed(() => ({ backgroundImage: `url(${countdownFrameU
         <span>&</span>
         {{ weddingConfig.couple.person2 }}
       </h1>
-      <p
-        class="hero-section__date"
-        :style="dateFrameStyle"
-      >
-        {{ formatWeddingDate(weddingConfig.date, locale) }}
+      <p class="hero-section__date">
+        <img
+          class="hero-section__date-frame"
+          :src="countdownFrameUrl"
+          alt=""
+          aria-hidden="true"
+        >
+        <span>{{ formatWeddingDate(weddingConfig.date, locale) }}</span>
       </p>
       <p class="hero-section__intro">
         {{ getLocalizedText(weddingConfig.intro, locale) }}
@@ -87,20 +89,32 @@ const dateFrameStyle = computed(() => ({ backgroundImage: `url(${countdownFrameU
 .hero-section__date {
   position: relative;
   display: inline-grid;
-  width: min(100%, 22rem);
+  width: min(100%, 23.5rem);
   min-height: 6.5rem;
   place-items: center;
   margin: 0;
-  padding: 1.15rem 2rem;
+  padding: 1.15rem 2.35rem;
   border: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
   font-family: var(--font-display);
   color: var(--color-text-inverse);
   font-size: 1.45rem;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.hero-section__date-frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.hero-section__date span {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-section__intro {
@@ -135,7 +149,7 @@ const dateFrameStyle = computed(() => ({ backgroundImage: `url(${countdownFrameU
 
   .hero-section__date {
     font-size: 1.12rem;
-    width: min(100%, 18.5rem);
+    width: min(100%, 19.5rem);
     min-height: 5.8rem;
     padding-inline: 1rem;
   }

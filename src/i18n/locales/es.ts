@@ -32,9 +32,12 @@ export default {
   venue: {
     address: 'Dirección',
     celebration: 'Celebración',
+    date: 'Fecha',
     directions: 'Cómo llegar',
     flip: 'Pulsa para saber cómo llegar',
+    place: 'Lugar',
     showFront: 'Volver al lugar',
+    time: 'Hora',
     title: '¿Dónde será?',
   },
   timeline: {

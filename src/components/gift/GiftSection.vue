@@ -78,10 +78,6 @@ onBeforeUnmount(() => {
           </div>
         </dl>
       </div>
-
-      <p class="gift-section__note">
-        {{ t('gift.demoNote') }}
-      </p>
     </div>
   </section>
 </template>
@@ -89,6 +85,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .gift-section {
   background: var(--color-background-alt);
+  padding-bottom: clamp(2.2rem, 7vw, 3.6rem);
 }
 
 .gift-section :deep(.section-inner > h2) {
@@ -173,11 +170,6 @@ onBeforeUnmount(() => {
   padding-inline: 0.95rem;
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-.gift-section__note {
-  color: rgb(255 250 246 / 0.72);
-  font-size: 0.9rem;
 }
 
 @media (max-width: 25rem) {

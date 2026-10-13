@@ -3,8 +3,10 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import type { WeddingConfig } from '@/types/wedding'
-import { getLocalizedText } from '@/i18n/localized'
+import { formatWeddingDate } from '@/i18n/localized'
+import { weddingConfig } from '@/config/wedding'
 import venueArtworkUrl from '@/assets/illustrations/coctel_place.png'
+import venueCardFrameUrl from '@/assets/illustrations/venue_card_frame.svg'
 
 const props = defineProps<{
   venue: WeddingConfig['venue']
@@ -14,6 +16,7 @@ const { locale, t } = useI18n()
 const isFlipped = ref(false)
 
 const flipLabel = computed(() => (isFlipped.value ? t('venue.showFront') : t('venue.flip')))
+const weddingDate = computed(() => formatWeddingDate(weddingConfig.date, locale.value))
 
 const toggleFlip = () => {
   isFlipped.value = !isFlipped.value
@@ -72,14 +75,28 @@ const toggleFlip = () => {
         :aria-hidden="!isFlipped"
         :inert="!isFlipped"
       >
-        <div class="venue-card__body venue-card__body--back">
+        <div class="venue-card__back-card">
+          <img
+            class="venue-card__back-frame"
+            :src="venueCardFrameUrl"
+            alt=""
+            aria-hidden="true"
+          >
           <p class="venue-card__label">
-            {{ t('venue.address') }}
+            {{ t('venue.place') }}
           </p>
           <h3>{{ props.venue.name }}</h3>
-          <p>{{ getLocalizedText(props.venue.description, locale) }}</p>
-          <p class="venue-card__address">
-            {{ props.venue.address }}
+          <p class="venue-card__label">
+            {{ t('venue.date') }}
+          </p>
+          <p class="venue-card__value">
+            {{ weddingDate }}
+          </p>
+          <p class="venue-card__label">
+            {{ t('venue.time') }}
+          </p>
+          <p class="venue-card__value">
+            {{ props.venue.time }}
           </p>
           <a
             class="venue-card__map-link"
@@ -141,7 +158,6 @@ const toggleFlip = () => {
 }
 
 .venue-card__face--back {
-  border: 2px solid var(--color-line);
   background: var(--color-surface);
   box-shadow: none;
   transform: rotateY(180deg);
@@ -200,36 +216,75 @@ const toggleFlip = () => {
 
 .venue-card__label {
   color: var(--color-primary);
-  font-size: 0.86rem;
+  font-size: 0.78rem;
   font-weight: 900;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
-.venue-card__body--back {
-  gap: 0.85rem;
+.venue-card__back-card {
+  position: relative;
+  display: grid;
+  width: min(100%, 26.5rem);
+  min-height: 19.15rem;
+  align-content: center;
+  justify-items: center;
+  margin-inline: auto;
+  padding: 3rem 2.5rem 2.35rem;
+  color: var(--color-text);
 }
 
-.venue-card__body--back h3 {
-  font-size: 1.75rem;
+.venue-card__back-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
 }
 
-.venue-card__body--back p:not(.venue-card__label):not(.venue-card__address) {
-  max-width: 25rem;
-  color: var(--color-text-muted);
-  line-height: 1.45;
+.venue-card__back-card > :not(.venue-card__back-frame) {
+  position: relative;
+  z-index: 1;
+}
+
+.venue-card__back-card p,
+.venue-card__back-card h3 {
+  margin: 0;
+}
+
+.venue-card__back-card h3,
+.venue-card__value {
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.venue-card__back-card h3 {
+  margin: 0.22rem 0 1.05rem;
+  text-transform: uppercase;
+}
+
+.venue-card__value {
+  margin: 0.22rem 0 1.05rem;
+  text-transform: uppercase;
 }
 
 .venue-card__map-link {
   display: inline-grid;
-  min-width: 11rem;
-  min-height: 3.4rem;
+  min-width: 10.25rem;
+  min-height: 2.85rem;
   place-items: center;
-  border-radius: 0.8rem;
+  margin-top: 0.3rem;
+  border-radius: var(--radius-pill);
   background: var(--color-primary-deep);
   color: var(--color-text-inverse);
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 900;
   padding-inline: 1.3rem;
   text-decoration: none;
   text-underline-offset: 0.24em;
@@ -282,6 +337,16 @@ const toggleFlip = () => {
 
   .venue-card__celebration {
     padding-inline: 0.65rem;
+  }
+
+  .venue-card__back-card {
+    min-height: 17.75rem;
+    padding: 2.5rem 2rem 2.15rem;
+  }
+
+  .venue-card__back-card h3,
+  .venue-card__value {
+    font-size: 0.92rem;
   }
 }
 

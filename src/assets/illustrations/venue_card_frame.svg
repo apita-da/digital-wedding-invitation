@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" fill="none">
+  <path
+    d="M38 18 C52 12, 66 24, 80 18 S108 12, 122 18 S150 24, 164 18 S192 12, 206 18 S234 24, 248 18 S276 12, 290 18 S320 24, 336 18"
+    stroke="#a7334f"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <path
+    d="M38 242 C52 248, 66 236, 80 242 S108 248, 122 242 S150 236, 164 242 S192 248, 206 242 S234 236, 248 242 S276 248, 290 242 S320 236, 336 242"
+    stroke="#a7334f"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <path
+    d="M18 38 C12 52, 24 66, 18 80 S12 108, 18 122 S24 150, 18 164 S12 192, 18 206 S24 224, 18 236"
+    stroke="#a7334f"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <path
+    d="M342 38 C348 52, 336 66, 342 80 S348 108, 342 122 S336 150, 342 164 S348 192, 342 206 S336 224, 342 236"
+    stroke="#a7334f"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <path
+    d="M22 25 C8 10, 10 0, 28 6 C20 12, 20 21, 22 25"
+    stroke="#a7334f"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M338 25 C352 10, 350 0, 332 6 C340 12, 340 21, 338 25"
+    stroke="#a7334f"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M22 235 C8 250, 10 260, 28 254 C20 248, 20 239, 22 235"
+    stroke="#a7334f"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M338 235 C352 250, 350 260, 332 254 C340 248, 340 239, 338 235"
+    stroke="#a7334f"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
