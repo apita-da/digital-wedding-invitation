@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 
 import { weddingConfig } from '@/config/wedding'
 import { getLocalizedText } from '@/i18n/localized'
+import darkOrnamentUrl from '@/assets/illustrations/block_beaty_bg_transparent.png'
 
 const { locale, t } = useI18n()
 
@@ -26,6 +27,12 @@ const toggleFaq = (id: string) => {
       <h2 id="faq-title">
         {{ t('faq.title') }}
       </h2>
+      <img
+        class="faq-section__ornament"
+        :src="darkOrnamentUrl"
+        alt=""
+        aria-hidden="true"
+      >
       <div class="faq-list">
         <article
           v-for="item in weddingConfig.faq"
@@ -62,25 +69,34 @@ const toggleFaq = (id: string) => {
 
 <style scoped lang="scss">
 .faq-section {
-  background:
-    linear-gradient(180deg, rgb(79 16 34 / 0.1), transparent 15rem),
-    var(--color-background-alt);
-  padding-bottom: clamp(5rem, 18vw, 8rem);
+  background: var(--color-background-alt);
+  padding-bottom: clamp(5.5rem, 18vw, 8.5rem);
 }
 
 .faq-section :deep(.section-inner > h2) {
-  font-size: 3.45rem;
+  color: var(--color-text-inverse);
+  font-size: 4.1rem;
+}
+
+.faq-section__ornament {
+  display: block;
+  width: min(100%, 33rem);
+  max-width: 100%;
+  height: 4.8rem;
+  margin: 1.1rem auto 0;
+  object-fit: contain;
+  object-position: center;
 }
 
 .faq-list {
   display: grid;
   gap: 0;
   width: min(100%, 26rem);
-  margin: 3.4rem auto 0;
+  margin: 3.2rem auto 0;
 }
 
 .faq-item {
-  border-bottom: 2px solid rgb(255 250 246 / 0.48);
+  border-bottom: 2px solid rgb(255 248 242 / 0.62);
   text-align: left;
 }
 
@@ -97,9 +113,9 @@ const toggleFaq = (id: string) => {
   align-items: center;
   border: 0;
   background: transparent;
-  color: rgb(255 250 246 / 0.78);
-  font-family: var(--font-body);
-  font-size: 0.74rem;
+  color: var(--color-text-inverse);
+  font-family: var(--font-display);
+  font-size: 0.86rem;
   font-weight: 900;
   padding: 0.78rem 0 0.58rem;
   text-align: left;
@@ -117,7 +133,7 @@ const toggleFaq = (id: string) => {
   aspect-ratio: 1;
   place-items: center;
   justify-self: end;
-  color: rgb(255 250 246 / 0.7);
+  color: var(--color-text-inverse);
 }
 
 .faq-item__icon::before,
@@ -140,7 +156,7 @@ const toggleFaq = (id: string) => {
 }
 
 .faq-item__answer {
-  color: rgb(255 250 246 / 0.68);
+  color: rgb(255 248 242 / 0.78);
   padding: 0 2rem 1rem 0;
 }
 

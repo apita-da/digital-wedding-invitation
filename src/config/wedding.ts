@@ -1,4 +1,5 @@
 import type { WeddingConfig } from '@/types/wedding'
+import envelopeVideoUrl from '@/assets/envelope_video.MP4'
 
 export const weddingConfig: WeddingConfig = {
   couple: {
@@ -11,7 +12,7 @@ export const weddingConfig: WeddingConfig = {
     en: 'We are so excited to celebrate this day with you. This invitation will keep growing with every important detail.',
   },
   assets: {
-    envelopeVideoUrl: '',
+    envelopeVideoUrl,
     envelopeVideoOpenDelayMs: 1600,
   },
   venue: {

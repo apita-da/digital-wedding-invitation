@@ -13,10 +13,6 @@ export default {
     eyebrow: 'Nos casamos',
     intro: 'Una invitación digital de boda elegante, cercana y preparada para crecer.',
   },
-  envelope: {
-    opening: 'Abriendo...',
-    tapHint: 'Toca para abrir',
-  },
   language: {
     ariaLabel: 'Cambiar idioma',
     english: 'English',

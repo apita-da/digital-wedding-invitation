@@ -93,14 +93,14 @@ onBeforeUnmount(() => {
 
 .gift-section :deep(.section-inner > h2) {
   font-family: var(--font-display);
-  font-size: 2.35rem;
+  font-size: 2.45rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .gift-section__message {
-  color: rgb(255 250 246 / 0.88);
+  color: var(--color-text-inverse);
   font-family: var(--font-display);
   font-size: 1.18rem;
   font-weight: 700;
@@ -109,8 +109,8 @@ onBeforeUnmount(() => {
 
 .gift-card {
   margin-top: 2rem;
-  border: 2px solid rgb(255 250 246 / 0.72);
-  border-radius: var(--radius-sm);
+  border: 2px solid rgb(255 248 242 / 0.74);
+  border-radius: 0.8rem;
   background: transparent;
   padding: 1.15rem;
   text-align: left;
@@ -162,13 +162,13 @@ onBeforeUnmount(() => {
 }
 
 .gift-data button {
-  min-height: 2.45rem;
+  min-height: 3rem;
   border: 0;
   border-radius: var(--radius-pill);
   background: var(--color-text-inverse);
-  color: var(--color-primary);
+  color: var(--color-primary-deep);
   font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 900;
   padding-inline: 0.95rem;
   text-transform: uppercase;

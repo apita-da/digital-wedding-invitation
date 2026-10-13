@@ -6,6 +6,7 @@ import { weddingConfig } from '@/config/wedding'
 import { formatWeddingDate } from '@/i18n/localized'
 import { rsvpService } from '@/services/rsvpService'
 import type { RsvpFormData, RsvpResponse, TransportValue } from '@/types/rsvp'
+import blockBeautyUrl from '@/assets/illustrations/block_beaty_transparent.png'
 
 const { locale, t } = useI18n()
 
@@ -82,16 +83,15 @@ const setTransport = (event: Event) => {
     aria-labelledby="rsvp-title"
   >
     <div class="section-inner">
-      <p class="section-kicker">
-        {{ t('sections.rsvp') }}
-      </p>
       <h2 id="rsvp-title">
         {{ t('rsvp.title') }}
       </h2>
-      <span
+      <img
         class="rsvp-section__ornament"
+        :src="blockBeautyUrl"
+        alt=""
         aria-hidden="true"
-      />
+      >
       <p class="rsvp-section__intro">
         {{ t('rsvp.deadline', { date: rsvpDeadline }) }}
       </p>
@@ -236,7 +236,8 @@ const setTransport = (event: Event) => {
 <style scoped lang="scss">
 .rsvp-section :deep(.section-inner > h2) {
   font-family: var(--font-display);
-  font-size: 2.45rem;
+  color: var(--color-primary);
+  font-size: 2.55rem;
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: 0.04em;
@@ -245,25 +246,24 @@ const setTransport = (event: Event) => {
 
 .rsvp-section__ornament {
   display: block;
-  width: min(100%, 28rem);
-  height: 3.4rem;
-  margin: 1.25rem auto 1.55rem;
-  color: var(--color-primary);
-  background:
-    radial-gradient(ellipse 1.08rem 1.05rem at 1.2rem 50%, transparent 54%, currentColor 56% 61%, transparent 63%)
-      0 50% / 3.1rem 2.8rem repeat-x,
-    linear-gradient(90deg, currentColor, currentColor) center / 100% 2px no-repeat;
-  mask-image: linear-gradient(90deg, transparent, black 8% 92%, transparent);
+  width: min(100%, 31rem);
+  max-width: 100%;
+  height: 4.35rem;
+  margin: 1rem auto 1.55rem;
+  object-fit: contain;
+  object-position: center;
 }
 
 .rsvp-section__intro {
-  color: var(--color-text-muted);
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-weight: 700;
 }
 
 .rsvp-form {
   display: grid;
-  gap: 1.05rem;
-  margin-top: 2rem;
+  gap: 0.95rem;
+  margin-top: 2.15rem;
   text-align: left;
 }
 
@@ -272,9 +272,10 @@ const setTransport = (event: Event) => {
   gap: 0.45rem;
   margin: 0;
   color: var(--color-primary);
-  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-size: 0.86rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -292,7 +293,7 @@ const setTransport = (event: Event) => {
   border-color: var(--color-primary);
   background: var(--color-surface);
   color: var(--color-text);
-  padding: 0.78rem 0.95rem;
+  padding: 0.76rem 1rem;
 }
 
 .rsvp-field textarea {
@@ -323,16 +324,28 @@ const setTransport = (event: Event) => {
 .rsvp-form__submit,
 .rsvp-success button {
   min-height: 3.1rem;
-  border: 0;
+  border: 2px solid var(--color-primary-deep);
   border-radius: var(--radius-pill);
-  background: var(--color-primary);
+  background: var(--color-primary-deep);
   color: var(--color-text-inverse);
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 900;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   padding-inline: 1.35rem;
   text-transform: uppercase;
+}
+
+.rsvp-form__submit:hover,
+.rsvp-success button:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.rsvp-form__submit:focus-visible,
+.rsvp-success button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-primary-deep) 34%, transparent);
+  outline-offset: 4px;
 }
 
 .rsvp-form__submit:disabled {
@@ -359,7 +372,7 @@ const setTransport = (event: Event) => {
   place-items: center;
   margin: 0;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--color-primary-deep);
   color: var(--color-text-inverse);
   font-size: 1.6rem;
   font-weight: 800;

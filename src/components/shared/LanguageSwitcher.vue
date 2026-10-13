@@ -43,10 +43,10 @@ const getLanguageTitle = (availableLocale: AppLocale) =>
   display: inline-flex;
   gap: 0.2rem;
   padding: 0.22rem;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
+  border: 1px solid rgb(255 248 242 / 0.52);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
-  box-shadow: 0 10px 28px rgb(66 45 50 / 0.08);
+  background: rgb(255 248 242 / 0.88);
+  box-shadow: none;
 }
 
 .language-switcher__option {
@@ -55,7 +55,7 @@ const getLanguageTitle = (availableLocale: AppLocale) =>
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--color-text-muted);
+  color: var(--color-primary-deep);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -71,7 +71,7 @@ const getLanguageTitle = (availableLocale: AppLocale) =>
 }
 
 .language-switcher__option--active {
-  background: var(--color-primary);
+  background: var(--color-primary-deep);
   color: var(--color-text-inverse);
 }
 

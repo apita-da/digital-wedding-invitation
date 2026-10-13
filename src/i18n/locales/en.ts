@@ -13,10 +13,6 @@ export default {
     eyebrow: 'We are getting married',
     intro: 'An elegant, warm digital wedding invitation ready to grow.',
   },
-  envelope: {
-    opening: 'Opening...',
-    tapHint: 'Tap to open',
-  },
   language: {
     ariaLabel: 'Change language',
     english: 'English',

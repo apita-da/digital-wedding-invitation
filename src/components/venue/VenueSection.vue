@@ -28,13 +28,14 @@ const { t } = useI18n()
 .venue-section :deep(.section-inner > h2) {
   margin: 0;
   color: var(--color-primary);
-  font-size: 3.15rem;
+  font-size: 4.05rem;
+  line-height: 0.82;
 }
 
 .venue-section__hint {
   margin: 0.15rem 0 0;
   color: var(--color-text);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 900;
   line-height: 1.25;
   text-transform: uppercase;
@@ -42,7 +43,7 @@ const { t } = useI18n()
 
 @media (max-width: 23rem) {
   .venue-section :deep(.section-inner > h2) {
-    font-size: 2.65rem;
+    font-size: 3.35rem;
   }
 }
 </style>

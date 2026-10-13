@@ -70,9 +70,6 @@ const openEnvelope = () => {
           >
             {{ weddingConfig.couple.person1 }} & {{ weddingConfig.couple.person2 }}
           </span>
-          <span class="envelope-intro__hint">
-            {{ isOpening ? t('envelope.opening') : t('envelope.tapHint') }}
-          </span>
         </span>
       </span>
       <template v-else>
@@ -95,9 +92,6 @@ const openEnvelope = () => {
             class="envelope-intro__line"
             aria-hidden="true"
           />
-          <span class="envelope-intro__hint">
-            {{ isOpening ? t('envelope.opening') : t('envelope.tapHint') }}
-          </span>
         </span>
         <span
           class="envelope-intro__front"

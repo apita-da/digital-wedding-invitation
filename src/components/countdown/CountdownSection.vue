@@ -3,8 +3,13 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { weddingConfig } from '@/config/wedding'
+import countdownFrameUrl from '@/assets/illustrations/countdown_frame_white.svg'
+import catEnUrl from '@/assets/illustrations/dont_miss_it_cat_en.png'
+import catEsUrl from '@/assets/illustrations/dont_miss_it_cat_es.png'
 
-const { t } = useI18n()
+const { locale, t } = useI18n()
+const closingArtworkUrl = computed(() => (locale.value === 'en' ? catEnUrl : catEsUrl))
+const dateFrameStyle = computed(() => ({ backgroundImage: `url(${countdownFrameUrl})` }))
 
 const remaining = computed(() => {
   const distance = Math.max(0, new Date(weddingConfig.date).getTime() - Date.now())
@@ -29,7 +34,10 @@ const remaining = computed(() => {
       <h2 id="countdown-title">
         {{ t('countdown.title') }}
       </h2>
-      <div class="countdown-grid">
+      <div
+        class="countdown-grid"
+        :style="dateFrameStyle"
+      >
         <div>
           <strong>{{ remaining.days }}</strong>
           <span>{{ t('countdown.days') }}</span>
@@ -47,6 +55,12 @@ const remaining = computed(() => {
           <span>{{ t('countdown.seconds') }}</span>
         </div>
       </div>
+      <img
+        class="countdown-section__artwork"
+        :src="closingArtworkUrl"
+        alt=""
+        aria-hidden="true"
+      >
     </div>
   </section>
 </template>
@@ -57,48 +71,29 @@ const remaining = computed(() => {
 }
 
 .countdown-section :deep(.section-inner > h2) {
-  max-width: 24rem;
+  max-width: 23rem;
   margin-inline: auto;
   color: var(--color-text-inverse);
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 2.05rem;
   font-weight: 800;
-  line-height: 1.28;
+  line-height: 1.25;
 }
 
 .countdown-grid {
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, auto);
-  gap: 0.6rem;
+  gap: 0.5rem;
   justify-content: center;
-  width: min(100%, 23rem);
-  min-height: 5rem;
+  width: min(100%, 24rem);
+  min-height: 6.4rem;
   margin: 2.4rem auto 0;
-  padding: 1.15rem 1.25rem;
-  border-inline: 2px solid rgb(255 250 246 / 0.82);
-  border-radius: var(--radius-sm);
-}
-
-.countdown-grid::before,
-.countdown-grid::after {
-  position: absolute;
-  right: 0.9rem;
-  left: 0.9rem;
-  height: 0.8rem;
-  background:
-    radial-gradient(circle at 0.42rem 50%, transparent 0.28rem, currentColor 0.3rem 0.36rem, transparent 0.38rem)
-      0 0 / 1.05rem 100% repeat-x;
-  color: rgb(255 250 246 / 0.82);
-  content: '';
-}
-
-.countdown-grid::before {
-  top: -0.42rem;
-}
-
-.countdown-grid::after {
-  bottom: -0.42rem;
+  padding: 1.2rem 1.45rem;
+  border: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .countdown-grid div {
@@ -126,9 +121,18 @@ const remaining = computed(() => {
   letter-spacing: 0;
 }
 
+.countdown-section__artwork {
+  display: block;
+  width: min(84vw, 20.5rem);
+  margin: 2.85rem auto 0;
+  border-radius: var(--radius-sm);
+}
+
 @media (max-width: 23rem) {
   .countdown-grid {
     grid-template-columns: repeat(2, auto);
+    width: min(100%, 19rem);
+    min-height: 7.2rem;
   }
 }
 </style>

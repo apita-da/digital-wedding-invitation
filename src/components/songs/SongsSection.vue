@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 
 import { songService } from '@/services/songService'
 import type { Song, SongSuggestion } from '@/types/song'
+import blockBeautyUrl from '@/assets/illustrations/block_beaty_transparent.png'
 
 const { t } = useI18n()
 
@@ -107,16 +108,15 @@ onBeforeUnmount(() => {
     aria-labelledby="songs-title"
   >
     <div class="section-inner">
-      <p class="section-kicker">
-        {{ t('sections.songs') }}
-      </p>
       <h2 id="songs-title">
         {{ t('songs.title') }}
       </h2>
-      <span
+      <img
         class="songs-section__ornament"
+        :src="blockBeautyUrl"
+        alt=""
         aria-hidden="true"
-      />
+      >
       <p class="songs-section__intro">
         {{ t('songs.intro') }}
       </p>
@@ -337,27 +337,25 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .songs-section {
-  background: var(--color-blush);
+  background: var(--color-background);
 }
 
 .songs-section :deep(.section-inner > h2) {
   font-family: var(--font-display);
-  font-size: 1.85rem;
+  color: var(--color-primary);
+  font-size: 1.98rem;
   font-weight: 800;
   line-height: 1.1;
 }
 
 .songs-section__ornament {
   display: block;
-  width: min(100%, 27rem);
-  height: 3.2rem;
-  margin: 1rem auto 1.25rem;
-  color: var(--color-primary);
-  background:
-    radial-gradient(ellipse 1.02rem 1rem at 1.15rem 50%, transparent 54%, currentColor 56% 61%, transparent 63%)
-      0 50% / 3rem 2.7rem repeat-x,
-    linear-gradient(90deg, currentColor, currentColor) center / 100% 2px no-repeat;
-  mask-image: linear-gradient(90deg, transparent, black 8% 92%, transparent);
+  width: min(100%, 31rem);
+  max-width: 100%;
+  height: 4.35rem;
+  margin: 0.95rem auto 1.3rem;
+  object-fit: contain;
+  object-position: center;
 }
 
 .visually-hidden {
@@ -380,7 +378,7 @@ onBeforeUnmount(() => {
 .song-search-area {
   position: relative;
   z-index: 2;
-  width: min(100%, 24rem);
+  width: min(100%, 26.5rem);
   margin-top: 1.45rem;
   margin-inline: auto;
 }
@@ -391,7 +389,7 @@ onBeforeUnmount(() => {
 
 .song-search input {
   width: 100%;
-  min-height: 2.95rem;
+  min-height: 3rem;
   border-color: var(--color-primary);
   background: var(--color-background);
   color: var(--color-text);
@@ -507,9 +505,9 @@ onBeforeUnmount(() => {
 }
 
 .song-table-wrap {
-  margin-top: 1.35rem;
+  margin-top: 1.45rem;
   border: 2px solid var(--color-primary);
-  border-radius: var(--radius-sm);
+  border-radius: 0.8rem;
   background: var(--color-background);
   overflow: hidden;
 }
@@ -537,7 +535,7 @@ onBeforeUnmount(() => {
 .song-table th {
   border-bottom: 2px solid var(--color-primary);
   color: var(--color-primary);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 800;
 }
 
@@ -558,7 +556,7 @@ onBeforeUnmount(() => {
 
 .song-table td {
   color: color-mix(in srgb, var(--color-text) 88%, transparent);
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   line-height: 1.18;
   overflow-wrap: anywhere;
 }

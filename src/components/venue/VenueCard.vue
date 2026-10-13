@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 
 import type { WeddingConfig } from '@/types/wedding'
 import { getLocalizedText } from '@/i18n/localized'
+import venueArtworkUrl from '@/assets/illustrations/coctel_place.png'
 
 const props = defineProps<{
   venue: WeddingConfig['venue']
@@ -42,11 +43,10 @@ const toggleFlip = () => {
               class="venue-card__art"
               aria-hidden="true"
             >
-              <span class="venue-card__roof" />
-              <span class="venue-card__tower" />
-              <span class="venue-card__door" />
-              <span class="venue-card__tree venue-card__tree--left" />
-              <span class="venue-card__tree venue-card__tree--right" />
+              <img
+                :src="venueArtworkUrl"
+                alt=""
+              >
             </div>
             <div class="venue-card__body">
               <p class="venue-card__label">
@@ -106,13 +106,13 @@ const toggleFlip = () => {
 
 <style scoped lang="scss">
 .venue-card {
-  margin-top: 2.75rem;
+  margin-top: 3.05rem;
   perspective: 90rem;
 }
 
 .venue-card__inner {
   position: relative;
-  min-height: 21.5rem;
+  min-height: 23.5rem;
   transform-style: preserve-3d;
   transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -127,7 +127,7 @@ const toggleFlip = () => {
   display: grid;
   align-content: center;
   gap: 1.25rem;
-  padding: 0.9rem;
+  padding: 0;
   border: 0;
   border-radius: var(--radius-sm);
   backface-visibility: hidden;
@@ -141,9 +141,9 @@ const toggleFlip = () => {
 }
 
 .venue-card__face--back {
-  border: 2px solid color-mix(in srgb, var(--color-primary) 34%, transparent);
+  border: 2px solid var(--color-line);
   background: var(--color-surface);
-  box-shadow: var(--shadow-soft);
+  box-shadow: none;
   transform: rotateY(180deg);
 }
 
@@ -155,144 +155,26 @@ const toggleFlip = () => {
 .venue-card__celebration {
   position: relative;
   display: grid;
-  width: min(100%, 23.5rem);
-  gap: 0.35rem;
-  padding: 1.05rem 1rem 1.35rem;
-  border: 2px solid color-mix(in srgb, var(--color-primary) 78%, transparent);
+  width: min(100%, 26.5rem);
+  gap: 0.75rem;
+  padding: 0;
   color: var(--color-primary);
 }
 
-.venue-card__celebration::before,
-.venue-card__celebration::after {
-  position: absolute;
-  right: 0.55rem;
-  left: 0.55rem;
-  height: 0.8rem;
-  background:
-    radial-gradient(circle at 0.36rem 50%, transparent 0.28rem, currentColor 0.3rem 0.36rem, transparent 0.38rem)
-      0 0 / 1rem 100% repeat-x;
-  content: '';
-}
-
-.venue-card__celebration::before {
-  top: -0.48rem;
-}
-
-.venue-card__celebration::after {
-  bottom: -0.48rem;
-}
-
 .venue-card__art {
-  position: relative;
-  display: grid;
-  min-height: 11.5rem;
-  place-items: center;
+  display: block;
   overflow: hidden;
-  background: transparent;
 }
 
-.venue-card__art::before {
-  position: absolute;
-  right: 1.1rem;
-  bottom: 1.55rem;
-  left: 1.1rem;
-  height: 1px;
-  background: currentColor;
-  content: '';
-  opacity: 0.35;
-}
-
-.venue-card__roof,
-.venue-card__tower,
-.venue-card__door {
-  position: absolute;
-  border: 2px solid currentColor;
-  opacity: 0.64;
-}
-
-.venue-card__roof {
-  width: 9.2rem;
-  height: 5rem;
-  border-bottom: 0;
-  transform: translateY(0.65rem);
-}
-
-.venue-card__roof::before,
-.venue-card__roof::after {
-  position: absolute;
-  top: 1.2rem;
-  width: 0.72rem;
-  height: 0.72rem;
-  border: 1.5px solid currentColor;
-  border-radius: 50%;
-  content: '';
-}
-
-.venue-card__roof::before {
-  left: 1.2rem;
-}
-
-.venue-card__roof::after {
-  right: 1.2rem;
-}
-
-.venue-card__tower {
-  width: 1.55rem;
-  height: 6.3rem;
-  border-bottom: 0;
-  transform: translate(-3.55rem, -0.85rem);
-}
-
-.venue-card__tower::before {
-  position: absolute;
-  top: -1.2rem;
-  left: -0.32rem;
-  width: 2rem;
-  height: 1.2rem;
-  clip-path: polygon(50% 0, 100% 100%, 0 100%);
-  background: currentColor;
-  content: '';
-  opacity: 0.4;
-}
-
-.venue-card__door {
-  bottom: 2.7rem;
-  width: 1.5rem;
-  height: 2.3rem;
-  border-radius: 1rem 1rem 0 0;
-}
-
-.venue-card__tree {
-  position: absolute;
-  bottom: 2rem;
-  width: 1.2rem;
-  height: 3.7rem;
-  border-left: 2px solid currentColor;
-  opacity: 0.48;
-}
-
-.venue-card__tree::before {
-  position: absolute;
-  top: -0.6rem;
-  left: -0.8rem;
-  width: 1.7rem;
-  aspect-ratio: 1;
-  border: 2px solid currentColor;
-  border-radius: 50%;
-  content: '';
-}
-
-.venue-card__tree--left {
-  left: 3.25rem;
-}
-
-.venue-card__tree--right {
-  right: 3.25rem;
+.venue-card__art img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .venue-card__body {
   display: grid;
-  gap: 0.3rem;
+  gap: 0.35rem;
   justify-items: center;
 }
 
@@ -304,8 +186,8 @@ const toggleFlip = () => {
 .venue-card__body h3 {
   color: var(--color-primary);
   font-family: var(--font-display);
-  font-size: 1.02rem;
-  font-weight: 800;
+  font-size: 1.08rem;
+  font-weight: 900;
   line-height: 1.15;
   text-transform: uppercase;
 }
@@ -313,12 +195,12 @@ const toggleFlip = () => {
 .venue-card__time,
 .venue-card__address,
 .venue-card__label {
-  color: var(--color-text-muted);
+  color: var(--color-primary-deep);
 }
 
 .venue-card__label {
   color: var(--color-primary);
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -338,11 +220,19 @@ const toggleFlip = () => {
 }
 
 .venue-card__map-link {
-  color: var(--color-primary);
-  font-size: 0.88rem;
+  display: inline-grid;
+  min-width: 11rem;
+  min-height: 3.4rem;
+  place-items: center;
+  border-radius: 0.8rem;
+  background: var(--color-primary-deep);
+  color: var(--color-text-inverse);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
   font-weight: 800;
+  padding-inline: 1.3rem;
+  text-decoration: none;
   text-underline-offset: 0.24em;
-  text-transform: uppercase;
 }
 
 .venue-card__flip-cue {
@@ -392,18 +282,6 @@ const toggleFlip = () => {
 
   .venue-card__celebration {
     padding-inline: 0.65rem;
-  }
-
-  .venue-card__art {
-    min-height: 10.2rem;
-  }
-
-  .venue-card__roof {
-    width: 7.8rem;
-  }
-
-  .venue-card__tower {
-    transform: translate(-3rem, -0.85rem);
   }
 }
 
