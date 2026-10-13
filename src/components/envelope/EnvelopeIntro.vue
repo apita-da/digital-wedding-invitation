@@ -104,13 +104,14 @@ const openEnvelope = () => {
 
 <style scoped lang="scss">
 .envelope-intro {
-  position: relative;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
   display: grid;
   min-height: 100dvh;
   place-items: center;
   overflow: hidden;
-  padding: calc(4.25rem + env(safe-area-inset-top)) var(--space-page)
-    calc(3.25rem + env(safe-area-inset-bottom));
+  padding: 0;
   background:
     radial-gradient(circle at 20% 20%, rgb(255 250 246 / 0.14), transparent 26rem),
     var(--color-background-alt);
@@ -140,22 +141,20 @@ const openEnvelope = () => {
 .envelope-intro__button {
   position: relative;
   display: grid;
-  width: min(100%, 22rem);
-  min-height: min(58svh, 17rem);
+  width: 100%;
+  min-height: 100dvh;
   place-items: center;
-  border: 1px solid rgb(255 250 246 / 0.46);
-  border-radius: var(--radius-sm);
-  background:
-    linear-gradient(135deg, transparent 49%, rgb(255 250 246 / 0.22) 50%, transparent 51%),
-    color-mix(in srgb, var(--color-primary) 82%, black);
+  border: 0;
+  border-radius: 0;
+  background: var(--color-background-alt);
   color: inherit;
-  box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.18);
+  box-shadow: none;
   perspective: 80rem;
   overflow: hidden;
   padding: 0;
   transition:
-    opacity 360ms ease,
-    transform 360ms ease;
+    opacity 900ms ease,
+    transform 1200ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .envelope-intro__button:disabled {
@@ -163,7 +162,7 @@ const openEnvelope = () => {
 }
 
 .envelope-intro__button--opening {
-  transform: translateY(0.5rem) scale(0.98);
+  transform: scale(1.025);
 }
 
 .envelope-intro__back,
@@ -260,8 +259,8 @@ const openEnvelope = () => {
 }
 
 .envelope-intro__button--video.envelope-intro__button--opening {
-  opacity: 0.88;
-  transform: translateY(0.35rem) scale(0.985);
+  opacity: 1;
+  transform: scale(1.025);
 }
 
 .envelope-intro__names {
@@ -294,7 +293,7 @@ const openEnvelope = () => {
 
 @media (max-width: 23rem) {
   .envelope-intro__button {
-    min-height: 14.75rem;
+    min-height: 100dvh;
   }
 
   .envelope-intro__paper {

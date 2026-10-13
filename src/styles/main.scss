@@ -104,15 +104,26 @@ a {
   }
 }
 
+.envelope-fade-leave-active {
+  transition:
+    opacity 900ms ease,
+    transform 1100ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.envelope-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.035);
+}
+
 .invitation-reveal-enter-active {
   transition:
-    opacity 620ms ease,
-    transform 620ms ease;
+    opacity 980ms ease 120ms,
+    transform 980ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms;
 }
 
 .invitation-reveal-enter-from {
   opacity: 0;
-  transform: translateY(1.5rem);
+  transform: translateY(0.85rem);
 }
 
 .invitation-reveal-enter-to {

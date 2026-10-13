@@ -24,10 +24,12 @@ const revealInvitation = async () => {
 </script>
 
 <template>
-  <EnvelopeIntro
-    v-if="!isInvitationOpen"
-    @open="revealInvitation"
-  />
+  <Transition name="envelope-fade">
+    <EnvelopeIntro
+      v-if="!isInvitationOpen"
+      @open="revealInvitation"
+    />
+  </Transition>
 
   <Transition
     name="invitation-reveal"
